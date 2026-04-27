@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pygmalion — The Story | القصة</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Noto+Serif+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f0d0b;
+  --bg2:#181410;
+  --bg3:#221e17;
+  --card:#2a241c;
+  --border:#3d3526;
+  --gold:#c9a84c;
+  --gold-light:#e8c96a;
+  --gold-dim:#7a6330;
+  --cream:#f0e8d8;
+  --text:#e2d8c8;
+  --text-dim:#8a7e6e;
+  --act1:#c0392b;
+  --act1-dim:#6b1f16;
+  --act2:#2471a3;
+  --act2-dim:#154360;
+  --act3:#1e8449;
+  --act3-dim:#0e4d27;
+  --act4:#7d3c98;
+  --act4-dim:#4a235a;
+  --act5:#ca6f1e;
+  --act5-dim:#784212;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* PROGRESS */
+#prog-wrap{position:fixed;top:0;left:0;right:0;height:4px;z-index:2000;background:var(--bg2);}
+#prog-bar{height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:0%;transition:width .5s ease;}
+
+/* NAV */
+nav{
+  position:fixed;top:4px;left:0;right:0;z-index:1999;
+  background:rgba(15,13,11,.97);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 1.25rem;height:54px;gap:.2rem;
+}
+.nav-brand{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;color:var(--gold);font-weight:700;
+  white-space:nowrap;margin-right:1rem;flex-shrink:0;
+}
+.nav-scroll{display:flex;gap:.2rem;overflow-x:auto;scrollbar-width:none;flex:1;}
+.nav-scroll::-webkit-scrollbar{display:none;}
+.nb{
+  background:none;border:none;color:var(--text-dim);
+  font-family:'DM Sans',sans-serif;font-size:.72rem;
+  font-weight:600;padding:.35rem .65rem;border-radius:6px;
+  cursor:pointer;white-space:nowrap;transition:all .2s;
+  text-transform:uppercase;letter-spacing:.05em;
+  flex-shrink:0;
+}
+.nb:hover{color:var(--cream);background:var(--bg3);}
+.nb.active{color:var(--gold);background:rgba(201,168,76,.13);}
+.nb.act1.active{color:var(--act1);background:rgba(192,57,43,.12);}
+.nb.act2.active{color:var(--act2);background:rgba(36,113,163,.12);}
+.nb.act3.active{color:var(--act3);background:rgba(30,132,73,.12);}
+.nb.act4.active{color:var(--act4);background:rgba(125,60,152,.12);}
+.nb.act5.active{color:var(--act5);background:rgba(202,111,30,.12);}
+
+/* SECTIONS */
+section{display:none;min-height:100vh;padding:74px 1.25rem 4rem;max-width:960px;margin:0 auto;animation:fadeUp .4s ease;}
+section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* HOME */
+.home-hero{
+  min-height:90vh;display:flex;flex-direction:column;
+  justify-content:center;position:relative;overflow:hidden;
+}
+.home-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 60% 40%,rgba(201,168,76,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.home-eyebrow{
+  font-size:.75rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;
+}
+.home-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold);}
+.home-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,8vw,5.5rem);
+  color:var(--cream);line-height:1.08;margin-bottom:.5rem;
+}
+.home-title em{color:var(--gold);font-style:italic;}
+.home-arabic{
+  font-family:'Noto Serif Arabic',serif;
+  font-size:clamp(1.2rem,3vw,1.8rem);
+  color:var(--text-dim);margin-bottom:1.5rem;direction:rtl;
+}
+.home-desc{font-size:1rem;color:var(--text-dim);line-height:1.75;max-width:480px;margin-bottom:2.5rem;}
+.home-acts{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:3rem;}
+.act-pill{
+  padding:.5rem 1.1rem;border-radius:50px;
+  font-size:.8rem;font-weight:700;cursor:pointer;
+  border:none;font-family:'DM Sans',sans-serif;
+  transition:all .25s;letter-spacing:.04em;
+}
+.act-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.4);}
+.p1{background:var(--act1);color:#fff;}
+.p2{background:var(--act2);color:#fff;}
+.p3{background:var(--act3);color:#fff;}
+.p4{background:var(--act4);color:#fff;}
+.p5{background:var(--act5);color:#fff;}
+.home-scene-count{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;
+}
+.hsc{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1rem;text-align:center;
+}
+.hsc-n{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);}
+.hsc-l{font-size:.72rem;color:var(--text-dim);margin-top:.2rem;}
+
+/* ACT HEADER */
+.act-header{
+  border-radius:16px;padding:1.75rem;
+  margin-bottom:2rem;position:relative;overflow:hidden;
+}
+.act-header::before{
+  content:'';position:absolute;inset:0;opacity:.06;
+  background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);
+  background-size:20px 20px;
+}
+.ah1{background:linear-gradient(135deg,#6b1f16,#c0392b);}
+.ah2{background:linear-gradient(135deg,#154360,#2471a3);}
+.ah3{background:linear-gradient(135deg,#0e4d27,#1e8449);}
+.ah4{background:linear-gradient(135deg,#4a235a,#7d3c98);}
+.ah5{background:linear-gradient(135deg,#784212,#ca6f1e);}
+.act-num{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,6vw,4rem);
+  color:rgba(255,255,255,.2);font-weight:700;
+  line-height:1;margin-bottom:.5rem;
+}
+.act-title-en{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.3rem,3vw,1.9rem);
+  color:#fff;margin-bottom:.3rem;
+}
+.act-title-ar{
+  font-family:'Noto Serif Arabic',serif;
+  font-size:1rem;color:rgba(255,255,255,.65);
+  direction:rtl;margin-bottom:.75rem;
+}
+.act-setting{
+  font-size:.82rem;color:rgba(255,255,255,.55);
+  display:flex;align-items:center;gap:.5rem;
+}
+
+/* SCENE CARD */
+.scene-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;margin-bottom:1.5rem;
+  overflow:hidden;transition:border-color .2s;
+}
+.scene-card:hover{border-color:var(--gold-dim);}
+.scene-illus{
+  width:100%;height:160px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  flex-shrink:0;
+}
+.scene-body{padding:1.4rem;}
+.scene-num{
+  font-size:.7rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:.4rem;
+}
+.scene-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;color:var(--cream);margin-bottom:.2rem;
+}
+.scene-title-ar{
+  font-family:'Noto Serif Arabic',serif;
+  font-size:.95rem;color:var(--text-dim);
+  direction:rtl;margin-bottom:1rem;
+}
+.lang-block{margin-bottom:1rem;}
+.lang-label{
+  font-size:.65rem;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--gold-dim);
+  margin-bottom:.4rem;display:flex;align-items:center;gap:.4rem;
+}
+.lang-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.narration-en{
+  font-size:.95rem;line-height:1.85;color:var(--text);
+}
+.narration-ar{
+  font-family:'Noto Serif Arabic',serif;
+  font-size:.97rem;line-height:2;color:var(--text);
+  direction:rtl;text-align:right;
+}
+.info-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
+.info-box{
+  background:var(--bg3);border-radius:10px;padding:.9rem;
+  border:1px solid var(--border);
+}
+.info-box-title{
+  font-size:.67rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:.4rem;
+}
+.info-box p{font-size:.83rem;line-height:1.7;color:var(--text-dim);}
+.info-box .ar{font-family:'Noto Serif Arabic',serif;direction:rtl;text-align:right;}
+.ib-what .info-box-title{color:#3498db;}
+.ib-why .info-box-title{color:#27ae60;}
+
+/* TOGGLE */
+.toggle-wrap{margin-top:.75rem;}
+.toggle-btn{
+  background:none;border:1px solid var(--border);
+  color:var(--text-dim);font-family:'DM Sans',sans-serif;
+  font-size:.8rem;padding:.4rem .9rem;border-radius:6px;
+  cursor:pointer;display:flex;align-items:center;gap:.4rem;
+  transition:all .2s;
+}
+.toggle-btn:hover{border-color:var(--gold-dim);color:var(--gold);}
+.toggle-inner{display:none;margin-top:.75rem;}
+.toggle-inner.open{display:block;}
+.arrow{transition:transform .2s;display:inline-block;}
+.toggle-btn.open .arrow{transform:rotate(180deg);}
+
+/* ACT NAV */
+.act-nav{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:2.5rem;padding-top:1.5rem;
+  border-top:1px solid var(--border);
+}
+.anb{
+  display:flex;align-items:center;gap:.5rem;
+  background:var(--card);border:1px solid var(--border);
+  color:var(--text-dim);font-family:'DM Sans',sans-serif;
+  font-size:.85rem;font-weight:500;
+  padding:.6rem 1.1rem;border-radius:8px;cursor:pointer;
+  transition:all .2s;
+}
+.anb:hover{border-color:var(--gold-dim);color:var(--cream);}
+.anb:disabled{opacity:.3;cursor:default;}
+
+/* QUIZ */
+.qwrap{max-width:660px;margin:0 auto;}
+.qq{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem;margin-bottom:1.4rem;}
+.qq-num{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.4rem;}
+.qq-text{font-family:'Playfair Display',serif;font-size:1rem;color:var(--cream);margin-bottom:.9rem;line-height:1.5;}
+.qq-ar{font-family:'Noto Serif Arabic',serif;font-size:.88rem;color:var(--text-dim);direction:rtl;text-align:right;margin-bottom:.9rem;}
+.opts{display:flex;flex-direction:column;gap:.5rem;}
+.opt{
+  background:var(--bg3);border:1.5px solid var(--border);
+  border-radius:9px;padding:.8rem 1rem;cursor:pointer;
+  font-size:.9rem;color:var(--text);text-align:left;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.opt:hover:not(:disabled){border-color:var(--gold-dim);color:var(--cream);}
+.opt.correct{background:rgba(39,174,96,.12);border-color:#27ae60;color:#7dce9f;}
+.opt.wrong{background:rgba(192,57,43,.1);border-color:#c0392b;color:#e87b6e;}
+.opt:disabled{cursor:default;}
+.qfb{margin-top:.65rem;font-size:.85rem;padding:.6rem .9rem;border-radius:7px;display:none;}
+.qfb.show{display:block;}
+.qfb.ok{background:rgba(39,174,96,.1);color:#7dce9f;}
+.qfb.no{background:rgba(192,57,43,.1);color:#e87b6e;}
+.score-box{
+  background:var(--card);border:1px solid var(--gold-dim);
+  border-radius:16px;padding:2.5rem;text-align:center;display:none;
+}
+.score-box.show{display:block;}
+.score-n{font-family:'Playfair Display',serif;font-size:4rem;color:var(--gold);}
+.score-l{color:var(--text-dim);margin-top:.4rem;}
+.score-msg{color:var(--text-dim);margin-top:.75rem;font-size:.9rem;}
+.btn-restart{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:#1a1200;font-weight:700;border:none;
+  padding:.7rem 1.6rem;border-radius:8px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;
+  margin-top:1.25rem;transition:all .25s;
+}
+.btn-restart:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(201,168,76,.3);}
+
+/* GLOSSARY */
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;}
+.gi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;}
+.gi-term{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);margin-bottom:.2rem;}
+.gi-ar{font-family:'Noto Serif Arabic',serif;font-size:.85rem;color:var(--gold-dim);direction:rtl;margin-bottom:.5rem;}
+.gi-def{font-size:.84rem;color:var(--text-dim);line-height:1.65;}
+.gi-def-ar{font-family:'Noto Serif Arabic',serif;font-size:.84rem;color:var(--text-dim);direction:rtl;text-align:right;margin-top:.3rem;line-height:1.75;}
+
+/* TYPOGRAPHY */
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3rem);color:var(--cream);line-height:1.15;margin-bottom:.4rem;}
+h1 em{color:var(--gold);font-style:italic;}
+h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin:1.5rem 0 .6rem;}
+.subtitle{color:var(--text-dim);font-size:.93rem;margin-bottom:1.75rem;}
+.section-badge{display:inline-block;background:rgba(201,168,76,.12);color:var(--gold);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .7rem;border-radius:50px;margin-bottom:.9rem;}
+
+/* SVG ILLUSTRATIONS */
+svg.illus{max-width:100%;height:auto;}
+
+@media(max-width:600px){
+  .info-row{grid-template-columns:1fr;}
+  .home-scene-count{grid-template-columns:repeat(3,1fr);}
+  nav{padding:0 .6rem;}
+  .nav-brand{margin-right:.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="prog-wrap"><div id="prog-bar"></div></div>
+
+<nav>
+  <div class="nav-brand">🎭 Pygmalion</div>
+  <div class="nav-scroll">
+    <button class="nb active" onclick="show('home')">Home</button>
+    <button class="nb act1" onclick="show('act1')">Act I</button>
+    <button class="nb act2" onclick="show('act2')">Act II</button>
+    <button class="nb act3" onclick="show('act3')">Act III</button>
+    <button class="nb act4" onclick="show('act4')">Act IV</button>
+    <button class="nb act5" onclick="show('act5')">Act V</button>
+    <button class="nb" onclick="show('quiz')">Quiz</button>
+    <button class="nb" onclick="show('glossary')">Glossary</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HOME ═══════════════════ -->
+<section id="home" class="active">
+  <div class="home-hero">
+    <div class="home-eyebrow">George Bernard Shaw · Victorian Drama · 1913</div>
+    <div class="home-title"><em>Pygmalion</em><br>The Story</div>
+    <div class="home-arabic">بيغماليون — القصة كاملة</div>
+    <p class="home-desc">Follow the story of Eliza Doolittle — a poor London flower girl transformed by the brilliant, eccentric Professor Higgins — scene by scene, in English and Arabic.<br><br>تابع قصة إليزا دوليتل — بائعة الزهور الفقيرة من لندن — وهي تتحول بيد الأستاذ هيغنز الغريب الأطوار، مشهداً بمشهد، بالإنجليزية والعربية.</p>
+    <div class="home-acts">
+      <button class="act-pill p1" onclick="show('act1')">Act I — المشهد الأول</button>
+      <button class="act-pill p2" onclick="show('act2')">Act II — الفصل الثاني</button>
+      <button class="act-pill p3" onclick="show('act3')">Act III — الفصل الثالث</button>
+      <button class="act-pill p4" onclick="show('act4')">Act IV — الفصل الرابع</button>
+      <button class="act-pill p5" onclick="show('act5')">Act V — الفصل الخامس</button>
+    </div>
+    <div class="home-scene-count">
+      <div class="hsc"><div class="hsc-n">3</div><div class="hsc-l">Act I Scenes</div></div>
+      <div class="hsc"><div class="hsc-n">4</div><div class="hsc-l">Act II Scenes</div></div>
+      <div class="hsc"><div class="hsc-n">3</div><div class="hsc-l">Act III Scenes</div></div>
+      <div class="hsc"><div class="hsc-n">3</div><div class="hsc-l">Act IV Scenes</div></div>
+      <div class="hsc"><div class="hsc-n">4</div><div class="hsc-l">Act V Scenes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ACT I ═══════════════════ -->
+<section id="act1">
+  <div class="act-header ah1">
+    <div class="act-num">ACT I</div>
+    <div class="act-title-en">A Rainy Night in Covent Garden</div>
+    <div class="act-title-ar">ليلة ماطرة في كوفنت غاردن</div>
+    <div class="act-setting">📍 St. Paul's Church Portico, Covent Garden · Late evening, summer rainstorm</div>
+  </div>
+
+  <!-- SCENE 1 -->
+  <div class="scene-card">
+    <div class="scene-illus ah1" style="background:linear-gradient(160deg,#6b1f16,#c0392b22);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="280" height="100" rx="6" fill="#ffffff08"/>
+        <!-- columns -->
+        <rect x="40" y="10" width="12" height="120" rx="3" fill="#ffffff18"/>
+        <rect x="80" y="10" width="12" height="120" rx="3" fill="#ffffff18"/>
+        <rect x="228" y="10" width="12" height="120" rx="3" fill="#ffffff18"/>
+        <rect x="268" y="10" width="12" height="120" rx="3" fill="#ffffff18"/>
+        <!-- rain lines -->
+        <g stroke="#5599ff" stroke-width="1" opacity=".35">
+          <line x1="60" y1="0" x2="50" y2="30"/><line x1="100" y1="5" x2="90" y2="35"/>
+          <line x1="150" y1="0" x2="140" y2="30"/><line x1="200" y1="2" x2="190" y2="32"/>
+          <line x1="250" y1="0" x2="240" y2="30"/><line x1="300" y1="4" x2="290" y2="34"/>
+          <line x1="130" y1="0" x2="120" y2="28"/><line x1="175" y1="3" x2="165" y2="33"/>
+        </g>
+        <!-- figures -->
+        <!-- woman with basket -->
+        <circle cx="130" cy="75" r="10" fill="#e8c96a" opacity=".7"/>
+        <rect x="122" y="85" width="16" height="28" rx="4" fill="#e8c96a" opacity=".5"/>
+        <rect x="115" y="96" width="14" height="8" rx="3" fill="#c9a84c" opacity=".6"/>
+        <!-- tall man with hat -->
+        <circle cx="185" cy="68" r="10" fill="#b0a898" opacity=".7"/>
+        <rect x="178" y="78" width="14" height="32" rx="3" fill="#b0a898" opacity=".5"/>
+        <rect x="175" y="60" width="20" height="6" rx="2" fill="#6e6050" opacity=".8"/>
+        <!-- notebook -->
+        <rect x="192" y="82" width="10" height="14" rx="2" fill="#fff" opacity=".25"/>
+        <!-- church arch top -->
+        <path d="M100 10 Q160 0 220 10" stroke="#ffffff25" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act1);">Act I · Scene 1</div>
+      <div class="scene-title">The Portico — Everyone Caught in the Rain</div>
+      <div class="scene-title-ar">الرواق — الجميع محاصرون بالمطر</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          It is a wet summer night in London. A sudden, heavy rainstorm sends people running for shelter under the wide portico of St. Paul's Church in Covent Garden. Among those crowding beneath the columns are a well-dressed mother, Mrs. Eynsford Hill, and her daughter Clara. They are waiting impatiently for their son and brother Freddy, whom they sent to find a cab. Clara is irritable and demanding. When Freddy finally rushes in, soaking wet, he admits he could not find a single cab — every one in the city has been taken. His mother and sister scold him and send him out into the rain again. As he rushes back out he collides with a young flower girl who is hurrying in for shelter, and knocks her basket of flowers out of her hands. He mumbles a quick apology and dashes off. The flower girl — shabby, loud, and very much alive — picks up her scattered flowers and sits down on the base of one of the columns, grumbling loudly.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          إنها ليلة صيفية ماطرة في لندن. عاصفة مطرية مفاجئة تجبر الناس على الجري للاحتماء تحت رواق كنيسة القديس بولس في كوفنت غاردن. من بين المحتشدين تحت الأعمدة: سيدة أنيقة هي السيدة Eynsford Hill، وابنتها Clara. ينتظران بفارغ الصبر ابنهما وأخاهما Freddy الذي أُرسل ليأتي بعربة. تبدو Clara عصبية ومتذمرة. حين يعود Freddy أخيراً مبللاً بالمطر، يعترف بأنه لم يجد أي عربة. تعنّفه أمه وأخته وترسلانه مرة أخرى إلى المطر. وهو يندفع للخروج يصطدم ببائعة زهور شابة كانت تحاول دخول الرواق للاحتماء، فتقع سلتها من يدها. يعتذر منها بسرعة ويجري. بائعة الزهور — بملابسها الرثة وصوتها الصاخب وشخصيتها الحية — تلتقط زهورها المبعثرة وتجلس على قاعدة أحد الأعمدة وهي تتذمر بصوت عالٍ.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza enters the story for the first time. A rainstorm accidentally brings people of very different classes together under the same roof.</p>
+          <p class="ar" style="margin-top:.4rem;">إليزا تدخل القصة للمرة الأولى. عاصفة مطرية تجمع عن غير قصد أشخاصاً من طبقات مختلفة تحت سقف واحد.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>The rain is the spark. It forces rich and poor into the same space — something that never happens in Victorian London by choice.</p>
+          <p class="ar" style="margin-top:.4rem;">المطر هو الشرارة. يجبر الغني والفقير على مشاركة نفس المكان — وهو أمر لم يكن يحدث باختيار في لندن الفيكتورية.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 2 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#4a1010,#8b2020);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- notebook open -->
+        <rect x="120" y="35" width="80" height="60" rx="6" fill="#fffde0" opacity=".15"/>
+        <line x1="160" y1="35" x2="160" y2="95" stroke="#ffffff20" stroke-width="1.5"/>
+        <!-- pen lines on book -->
+        <line x1="130" y1="50" x2="155" y2="50" stroke="#ffffff30" stroke-width="1.5"/>
+        <line x1="130" y1="58" x2="155" y2="58" stroke="#ffffff30" stroke-width="1.5"/>
+        <line x1="130" y1="66" x2="150" y2="66" stroke="#ffffff30" stroke-width="1.5"/>
+        <!-- crowd silhouettes -->
+        <ellipse cx="60" cy="105" rx="14" ry="7" fill="#ffffff10"/>
+        <circle cx="60" cy="92" r="8" fill="#ffffff18"/>
+        <rect x="52" y="100" width="16" height="22" rx="4" fill="#ffffff12"/>
+        <ellipse cx="260" cy="105" rx="14" ry="7" fill="#ffffff10"/>
+        <circle cx="260" cy="92" r="8" fill="#ffffff18"/>
+        <rect x="252" y="100" width="16" height="22" rx="4" fill="#ffffff12"/>
+        <!-- pointing finger from crowd -->
+        <path d="M90 95 Q130 80 140 70" stroke="#ffcc00" stroke-width="2" fill="none" stroke-dasharray="4 3" opacity=".5"/>
+        <!-- exclamation -->
+        <text x="148" y="32" font-size="22" fill="#ffcc00" opacity=".7">!</text>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act1);">Act I · Scene 2</div>
+      <div class="scene-title">The Man with the Notebook</div>
+      <div class="scene-title-ar">الرجل صاحب الدفتر</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Someone in the crowd notices a man standing apart, his back turned to everyone, furiously writing something in a notebook every time anyone speaks. A bystander whispers to the flower girl: that man is taking down everything she says. The flower girl immediately panics. She bursts into tears and hysterical protests, convinced the man is a police informer who will have her arrested for talking to men on the street — which in those times could be used to accuse a poor woman of solicitation. She cries out loudly, insisting she has done nothing wrong. The man at the notebook turns around. He is Henry Higgins — a confident, energetic professor of phonetics, somewhere around forty, who has been noting down her thick cockney accent in a special phonetic script for scientific purposes. He shows no sympathy for her distress. He is more interested in her vowels than her feelings. He silences her with a brisk, almost comical authority.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          يلاحظ أحد المتجمعين رجلاً يقف منعزلاً، يُدير ظهره للجميع، ويكتب بسرعة في دفتر في كل مرة ينطق أحدٌ بكلمة. يهمس شخص لبائعة الزهور: ذلك الرجل يُدوّن كل ما تقوله. تنتابها الذعر فوراً. تنفجر بالبكاء والاحتجاج الهستيري، مقتنعةً بأن الرجل مخبر شرطة سيُلقي القبض عليها بتهمة التحرش بالرجال في الشارع — وهو ما كان يُستخدم في تلك الأيام للتشهير بالمرأة الفقيرة. يلتفت الرجل عن الدفتر. إنه Henry Higgins — أستاذ الصوتيات الواثق من نفسه المتحمس، في الأربعينيات من عمره تقريباً، كان يُدوّن لهجتها الكوكنية السميكة بخط صوتي خاص لأغراض علمية. لا يُبدي أي تعاطف مع حالتها. صوتياتها أهم بالنسبة له من مشاعرها. يُسكتها بسلطة سريعة تكاد تكون كوميدية.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>We meet Henry Higgins for the first time. He has been silently studying accents in the crowd — and Eliza's cockney speech caught his attention.</p>
+          <p class="ar" style="margin-top:.4rem;">نلتقي بـ Henry Higgins للمرة الأولى. كان يدرس اللهجات بصمت في الحشد — ولهجة إليزا الكوكنية استرعت انتباهه.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Higgins's notebook is the symbol of his worldview: people are not people to him, they are sound patterns. This sets up the moral problem of the whole play.</p>
+          <p class="ar" style="margin-top:.4rem;">دفتر هيغنز رمز لنظرته للعالم: الناس بالنسبة له ليسوا بشراً بل أنماطاً صوتية. هذا يُرسي المشكلة الأخلاقية في المسرحية كلها.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#7b1f1f,#a93226);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- two men shaking hands -->
+        <circle cx="120" cy="65" r="13" fill="#b0a898" opacity=".75"/>
+        <rect x="110" y="78" width="20" height="35" rx="4" fill="#b0a898" opacity=".55"/>
+        <circle cx="200" cy="65" r="13" fill="#c9a84c" opacity=".75"/>
+        <rect x="190" y="78" width="20" height="35" rx="4" fill="#c9a84c" opacity=".55"/>
+        <!-- handshake area -->
+        <path d="M140 88 Q160 80 180 88" stroke="#ffffff50" stroke-width="3" fill="none"/>
+        <!-- coins flying -->
+        <circle cx="240" cy="50" r="7" fill="#ffd700" opacity=".6"/>
+        <circle cx="255" cy="40" r="5" fill="#ffd700" opacity=".5"/>
+        <circle cx="248" cy="62" r="4" fill="#ffd700" opacity=".4"/>
+        <!-- flower basket below -->
+        <rect x="74" y="100" width="24" height="14" rx="4" fill="#c9a84c" opacity=".4"/>
+        <circle cx="86" cy="98" r="5" fill="#e74c3c" opacity=".5"/>
+        <circle cx="76" cy="97" r="4" fill="#f39c12" opacity=".5"/>
+        <circle cx="96" cy="97" r="4" fill="#e74c3c" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act1);">Act I · Scene 3</div>
+      <div class="scene-title">Two Experts Meet — and Higgins Throws Eliza Some Coins</div>
+      <div class="scene-title-ar">لقاء خبيرَين — وهيغنز يُلقي لإليزا بعض المعدنيات</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Higgins then does something extraordinary: he demonstrates his talent to the crowd by identifying where each person was born purely from the sound of their voice. He places the bystanders to within a few streets of their birthplace. The "gentleman" who has been standing quietly nearby is impressed and introduces himself — he is Colonel Pickering, a linguist who has just arrived from India, specifically to meet Higgins, whose work he has long admired. Higgins, equally delighted, reveals himself. The two men instantly bond over their shared love of language science and decide to go to dinner together. As they leave, Eliza asks Pickering to buy a flower. He apologises and says he has no change. Higgins hears this, and on a sudden impulse, reaches into his pocket and flings a generous handful of coins into Eliza's flower basket — far more than she has ever received at once. The crowd disperses. Eliza is left staring at her treasure: enough money for a taxi home. She takes it.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          ثم يفعل هيغنز شيئاً مثيراً للدهشة: يُظهر موهبته أمام الحشد بتحديد مكان ولادة كل شخص من مجرد صوته. يُحدد أماكن المتجمعين حتى في نطاق بضعة شوارع من مسقط رأسهم. "السيد" الذي كان يقف بهدوء يُبدي إعجابه ويُعرّف بنفسه: إنه الكولونيل Pickering، خبير لغوي قَدِم للتو من الهند، خصيصاً لمقابلة هيغنز الذي طالما أعجب بعمله. هيغنز بدوره ينبهر ويكشف عن هويته. ينجذب الرجلان لبعضهما بسرعة بسبب حبهما المشترك لعلم اللغة ويقرران الذهاب لتناول العشاء معاً. عند خروجهما، تطلب إليزا من Pickering شراء زهرة، فيعتذر لعدم وجود فكّة معه. يسمعها هيغنز، وبدافع مفاجئ، يُخرج يده من جيبه ويُلقي بحفنة سخية من المعدنيات في سلة إليزا — أكثر بكثير مما تلقّته دفعةً واحدة قط. يتفرق الحشد. تجلس إليزا تحدق في كنزها: يكفي لأخذ تاكسي للبيت. وتأخذه.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Higgins and Pickering meet and become instant friends. Higgins casually tosses coins to Eliza — the first gesture of generosity she has ever received from a stranger.</p>
+          <p class="ar" style="margin-top:.4rem;">هيغنز وبيكرينج يلتقيان ويصبحان صديقَين فوراً. هيغنز يُلقي معدنيات لإليزا — أول بادرة كرم تتلقاها من غريب.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>With those coins, Eliza gets her first taste of a better life. It plants a seed: maybe there is a way out of the gutter. The bet that will change everything is only one day away.</p>
+          <p class="ar" style="margin-top:.4rem;">بتلك المعدنيات تتذوق إليزا للمرة الأولى طعم حياة أفضل. وهذا يزرع فكرة: ربما هناك طريق للخروج من البؤس. والرهان الذي سيغير كل شيء لم يكن إلا على بُعد يوم واحد.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="act-nav">
+    <button class="anb" disabled>← Previous</button>
+    <button class="anb" onclick="show('act2')">Act II →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════ ACT II ═══════════════════ -->
+<section id="act2">
+  <div class="act-header ah2">
+    <div class="act-num">ACT II</div>
+    <div class="act-title-en">The Laboratory — and The Bet</div>
+    <div class="act-title-ar">المختبر — والرهان</div>
+    <div class="act-setting">📍 27A Wimpole Street, Higgins's Laboratory · The next morning</div>
+  </div>
+
+  <!-- SCENE 1 -->
+  <div class="scene-card">
+    <div class="scene-illus ah2" style="background:linear-gradient(160deg,#154360,#2471a3);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- lab equipment -->
+        <rect x="30" y="50" width="60" height="70" rx="4" fill="#ffffff08"/>
+        <!-- tuning forks -->
+        <rect x="40" y="30" width="4" height="40" rx="2" fill="#ffffff30"/>
+        <rect x="52" y="30" width="4" height="40" rx="2" fill="#ffffff30"/>
+        <ellipse cx="44" cy="28" rx="6" ry="4" fill="#ffffff20"/>
+        <!-- phonograph cylinder -->
+        <ellipse cx="130" cy="75" rx="25" ry="15" fill="#ffffff10"/>
+        <rect x="105" y="60" width="50" height="15" rx="3" fill="#ffffff15"/>
+        <!-- books stacked -->
+        <rect x="200" y="70" width="50" height="8" rx="2" fill="#c9a84c" opacity=".4"/>
+        <rect x="203" y="62" width="44" height="8" rx="2" fill="#3498db" opacity=".35"/>
+        <rect x="205" y="54" width="40" height="8" rx="2" fill="#e74c3c" opacity=".3"/>
+        <!-- flower girl small figure at door -->
+        <circle cx="285" cy="72" r="9" fill="#e8c96a" opacity=".65"/>
+        <rect x="278" y="81" width="14" height="22" rx="4" fill="#e8c96a" opacity=".45"/>
+        <!-- small hat detail -->
+        <ellipse cx="285" cy="64" rx="10" ry="4" fill="#c9a84c" opacity=".5"/>
+        <!-- door frame -->
+        <rect x="270" y="55" width="40" height="70" rx="3" fill="none" stroke="#ffffff20" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act2);">Act II · Scene 1</div>
+      <div class="scene-title">Eliza Arrives at Wimpole Street</div>
+      <div class="scene-title-ar">إليزا تصل إلى وِيمبول ستريت</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          The next morning, Higgins is showing Pickering around his remarkable laboratory — full of phonographs, tuning forks, recording cylinders, and scientific charts of the human vocal system. The housekeeper, Mrs. Pearce, a composed and quietly dignified woman, interrupts to say that a young woman has arrived asking to see Higgins. She describes her as "very common." Higgins, always hungry for unusual speech patterns, tells Mrs. Pearce to bring her in. The flower girl walks in — still shabby, but wearing her best clothes. She has done her hair and put on her most respectable hat, decorated with three wilting feathers of orange, red, and blue. She announces to Higgins, with shaky but determined confidence, that she wants to take elocution lessons from him so that she can speak well enough to work in a proper flower shop instead of selling on the street. She even offers to pay — a shilling per lesson. Higgins and Pickering are astounded. Higgins is immediately dismissive; she is just another specimen to him. He recognises her from the night before and says he has already recorded her accent — he has no further use for her.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          في صباح اليوم التالي، يُريح هيغنز بيكرينج جولةً في مختبره المذهل — مليء بالمُسجّلات، وشوكات الرنين، وأسطوانات التسجيل، والمخططات العلمية لجهاز الصوت البشري. تُقاطعهما المربية السيدة Pearce — وهي امرأة رصينة تتسم بوقار هادئ — لتُخبر هيغنز أن شابة وصلت تطلب مقابلته، وتصفها بأنها "عامية جداً". هيغنز، الشَّره دائماً للأنماط الصوتية غير المألوفة، يطلب إحضارها. تدخل بائعة الزهور — لا تزال متواضعة الملبس، لكنها ارتدت أحسن ثيابها. مشّطت شعرها وارتدت قبعتها الأكثر احتراماً، مُزيّنة بثلاث ريشات ذابلة: برتقالية وحمراء وزرقاء. تُعلن لهيغنز بثقة مرتعشة لكنها حازمة أنها تريد دروساً في فن النطق لتتمكن من التحدث بشكل لائق كي تعمل في محل زهور حقيقي بدلاً من البيع في الشارع. بل وتعرض الدفع — شلناً في الدرس. يُذهل هيغنز وبيكرينج. يُبدي هيغنز تجاهلاً فورياً؛ هي مجرد عيّنة بالنسبة له. يتعرف عليها من الليلة الماضية ويقول إنه سجّل لهجتها بالفعل — لا يحتاج إليها بعد الآن.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza takes the bravest step of her life — she walks into the home of a powerful man and asks to be transformed. She even offers her own money.</p>
+          <p class="ar" style="margin-top:.4rem;">إليزا تخطو أشجع خطوة في حياتها — تدخل منزل رجل قوي وتطلب أن تتغير. بل وتعرض دفع ثمن ذلك من مالها الخاص.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Eliza is not a passive Cinderella waiting to be rescued. She acts. She chooses this. Her agency is real from the very beginning.</p>
+          <p class="ar" style="margin-top:.4rem;">إليزا ليست سندريلا سلبية تنتظر الإنقاذ. إنها تتصرف. إنها تختار. إرادتها حقيقية منذ البداية.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 2 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#1a4a6b,#1f618d);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- two men center -->
+        <circle cx="150" cy="60" r="12" fill="#c9a84c" opacity=".7"/>
+        <rect x="140" y="72" width="20" height="30" rx="4" fill="#c9a84c" opacity=".5"/>
+        <circle cx="190" cy="60" r="12" fill="#b0a898" opacity=".7"/>
+        <rect x="180" y="72" width="20" height="30" rx="4" fill="#b0a898" opacity=".5"/>
+        <!-- handshake -->
+        <path d="M162 80 Q170 76 178 80" stroke="#ffffff60" stroke-width="2.5" fill="none"/>
+        <!-- pound sign / coins -->
+        <text x="200" y="48" font-size="16" fill="#ffd700" opacity=".7">£</text>
+        <circle cx="230" cy="52" r="8" fill="#ffd700" opacity=".35"/>
+        <!-- small eliza off to side -->
+        <circle cx="70" cy="72" r="9" fill="#e8c96a" opacity=".55"/>
+        <rect x="63" y="81" width="14" height="22" rx="4" fill="#e8c96a" opacity=".4"/>
+        <!-- speech bubble -->
+        <rect x="30" y="45" width="30" height="18" rx="5" fill="#ffffff12"/>
+        <text x="35" y="57" font-size="9" fill="#fff" opacity=".5">Yes!</text>
+        <!-- exclamation bg -->
+        <circle cx="160" cy="25" r="16" fill="#ffffff06"/>
+        <text x="154" y="31" font-size="16" fill="#3498db" opacity=".6">?</text>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act2);">Act II · Scene 2</div>
+      <div class="scene-title">Pickering Makes the Bet</div>
+      <div class="scene-title-ar">بيكرينج يُقدّم الرهان</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Pickering intervenes. Amused and genuinely curious, he challenges Higgins: could he really transform this girl entirely? Could he pass her off in polished society — at a great Ambassador's party, for instance — within six months? He offers to cover all the costs of the experiment if Higgins can pull it off. Higgins is instantly lit up by the challenge. He turns to look at Eliza properly for the first time — not as a person, but as a problem to be solved. He accepts the bet with enormous enthusiasm. Mrs. Pearce tries to raise practical and moral objections: what about the girl's parents? What will happen to her when the experiment is over? Higgins waves every concern aside. He instructs Mrs. Pearce to take Eliza upstairs, give her a thorough bath, burn her old clothes, and order her new ones.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          يتدخل Pickering. مسلّياً ومفتوناً حقاً، يتحدى هيغنز: هل يستطيع فعلاً أن يُحوّل هذه الفتاة تحولاً كاملاً؟ هل يستطيع تقديمها في المجتمع الراقي — في حفلة سفير عظيم مثلاً — خلال ستة أشهر؟ يعرض تغطية جميع تكاليف التجربة إن نجح هيغنز. يُضيء هيغنز فوراً بالتحدي. يلتفت لينظر إلى إليزا بجدية للمرة الأولى — لا كإنسانة، بل كمشكلة تحتاج حلاً. يقبل الرهان بحماس هائل. تحاول السيدة Pearce إثارة اعتراضات عملية وأخلاقية: ماذا عن والدَي الفتاة؟ ماذا سيحدث لها حين تنتهي التجربة؟ يتجاوز هيغنز كل اعتراض. يأمر السيدة Pearce بأخذ إليزا للأعلى، وإعطائها حماماً شاملاً، وحرق ملابسها القديمة، وطلب ملابس جديدة لها.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>The central bet of the play is made. Higgins will try to pass Eliza off as a duchess within six months. Pickering will pay all costs.</p>
+          <p class="ar" style="margin-top:.4rem;">الرهان المحوري في المسرحية يُبرَم. سيحاول هيغنز تقديم إليزا كدوقة خلال ستة أشهر. بيكرينج سيتحمل كل التكاليف.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Higgins accepts the bet as a game — a scientific challenge. He never once thinks about what it means for Eliza as a human being. This blind spot is the moral heart of the play.</p>
+          <p class="ar" style="margin-top:.4rem;">هيغنز يقبل الرهان كلعبة — تحدٍّ علمي. لا يُفكر لحظةً واحدة بما يعنيه ذلك لإليزا كإنسانة. هذه النقطة العمياء هي القلب الأخلاقي للمسرحية.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#1a3a50,#21618c);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- bathtub shape -->
+        <rect x="90" y="70" width="140" height="50" rx="16" fill="#ffffff08" stroke="#ffffff20" stroke-width="2"/>
+        <!-- water ripple -->
+        <ellipse cx="160" cy="85" rx="55" ry="12" fill="#3498db" opacity=".15"/>
+        <path d="M115 85 Q130 80 145 85 Q160 90 175 85 Q190 80 205 85" stroke="#3498db" stroke-width="1.5" fill="none" opacity=".5"/>
+        <!-- soap bubbles -->
+        <circle cx="130" cy="72" r="6" fill="#ffffff15" stroke="#ffffff30" stroke-width="1"/>
+        <circle cx="148" cy="65" r="4" fill="#ffffff10" stroke="#ffffff25" stroke-width="1"/>
+        <circle cx="163" cy="70" r="7" fill="#ffffff12" stroke="#ffffff28" stroke-width="1"/>
+        <!-- old clothes burning at left -->
+        <rect x="30" y="90" width="30" height="30" rx="4" fill="#c9a84c" opacity=".15"/>
+        <path d="M35 90 Q45 75 55 90" fill="#e74c3c" opacity=".4"/>
+        <path d="M38 88 Q48 72 58 88" fill="#f39c12" opacity=".3"/>
+        <!-- flames -->
+        <path d="M40 90 Q45 78 50 90" fill="#e74c3c" opacity=".5"/>
+        <!-- new kimono at right -->
+        <rect x="255" y="55" width="35" height="65" rx="6" fill="#fff" opacity=".08" stroke="#ffffff25" stroke-width="1.5"/>
+        <path d="M255 70 Q272 65 290 70" stroke="#3498db" stroke-width="1.5" fill="none" opacity=".4"/>
+        <!-- flowers on kimono -->
+        <circle cx="265" cy="80" r="3" fill="#ffffff30"/>
+        <circle cx="275" cy="90" r="3" fill="#ffffff25"/>
+        <circle cx="280" cy="75" r="2.5" fill="#ffffff20"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act2);">Act II · Scene 3</div>
+      <div class="scene-title">The Bath — Eliza is Reborn</div>
+      <div class="scene-title-ar">الحمام — إليزا تُولد من جديد</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Mrs. Pearce takes a very reluctant and frightened Eliza upstairs. What follows is Eliza's first real encounter with luxury: hot running water, soft towels, fine soap, a clean bathroom. It is terrifying and extraordinary to her — she has never experienced anything like it. Her old, worn-out clothes are taken away and destroyed. She is wrapped in a kimono. When she finally comes downstairs, her own father does not recognise her. She is clean, she is dressed in something beautiful, and she looks completely different — though she still sounds entirely like herself.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          تأخذ السيدة Pearce إليزا المترددة والخائفة للأعلى. ما يتلو ذلك هو اللقاء الأول لإليزا الحقيقي بالرفاهية: مياه ساخنة جارية، مناشف ناعمة، صابون فاخر، حمام نظيف. إنه أمر مُرعب وخارق لها — لم تختبر شيئاً كهذا قط. ملابسها القديمة المتهالكة تُؤخذ منها وتُتلف. تُلفّ بكيمونو. حين تنزل أخيراً، لا يتعرف عليها أبوها. إنها نظيفة، وترتدي شيئاً جميلاً، وتبدو مختلفةً تماماً — رغم أنها لا تزال تتحدث بنفس أسلوبها تماماً.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza's physical transformation begins. Her old clothes are burned — symbolically, her past is gone. She cannot go back.</p>
+          <p class="ar" style="margin-top:.4rem;">التحول الجسدي لإليزا يبدأ. ملابسها القديمة تُحرق — رمزياً، ماضيها انتهى. لا يمكنها العودة.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>The burning of old clothes is one of Shaw's most powerful symbols. A new identity cannot grow while the old one is still being worn.</p>
+          <p class="ar" style="margin-top:.4rem;">حرق الملابس القديمة أحد أقوى رموز شو. لا يمكن لهوية جديدة أن تنمو بينما لا تزال القديمة مرتدية.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#123050,#1a5276);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- doolittle dusty figure -->
+        <circle cx="80" cy="62" r="13" fill="#b07030" opacity=".7"/>
+        <rect x="68" y="75" width="24" height="35" rx="4" fill="#b07030" opacity=".5"/>
+        <!-- dirty cap -->
+        <ellipse cx="80" cy="52" rx="13" ry="5" fill="#7a5020" opacity=".7"/>
+        <!-- dust puffs -->
+        <circle cx="60" cy="80" r="8" fill="#c4a882" opacity=".15"/>
+        <circle cx="55" cy="90" r="5" fill="#c4a882" opacity=".12"/>
+        <!-- five pound note -->
+        <rect x="170" y="68" width="55" height="30" rx="4" fill="#27ae60" opacity=".25" stroke="#27ae60" stroke-width="1.5"/>
+        <text x="182" y="86" font-size="13" fill="#27ae60" opacity=".7">£5</text>
+        <!-- hand reaching -->
+        <path d="M104 85 Q140 80 170 83" stroke="#ffffff30" stroke-width="2.5" fill="none"/>
+        <!-- higgins standing right -->
+        <circle cx="245" cy="60" r="13" fill="#c9a84c" opacity=".7"/>
+        <rect x="234" y="73" width="22" height="35" rx="4" fill="#c9a84c" opacity=".5"/>
+        <!-- laughing expression -->
+        <path d="M238 60 Q245 65 252 60" stroke="#fff" stroke-width="1.5" fill="none" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act2);">Act II · Scene 4</div>
+      <div class="scene-title">Doolittle Sells His Daughter</div>
+      <div class="scene-title-ar">دوليتل يبيع ابنته</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          While Eliza is upstairs, her father, Alfred Doolittle — a dustman, loud, cheerful, and magnificently shameless — arrives at the door. Rather than demanding the return of his daughter or expressing any fatherly concern, he simply tells Higgins he wants five pounds for her. He does not pretend to be moral. In a famous and hilarious speech, he claims that middle-class morality is merely an excuse rich people use to never give money to the poor. He calls himself "one of the undeserving poor" and argues his case with the entertaining logic of someone who has thought carefully about how not to have a conscience. Higgins is so delighted by Doolittle's wit and total lack of shame that he gives him the five pounds. Doolittle pockets it with great satisfaction and prepares to leave. As he heads for the door, a clean, beautifully dressed young woman steps out — and he does not recognise her. She has to tell him: it is Eliza, his own daughter.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          بينما إليزا في الطابق العلوي، يصل والدها Alfred Doolittle — عامل نظافة، صاخب، مرح، وبلا حياء بشكل مذهل — إلى الباب. بدلاً من المطالبة بإعادة ابنته أو إبداء أي قلق أبوي، يُخبر هيغنز ببساطة أنه يريد خمسة جنيهات مقابلها. لا يتظاهر بالأخلاق. في خطاب شهير مضحك، يزعم أن الأخلاق الطبقية ما هي إلا ذريعة يستخدمها الأثرياء لعدم إعطاء المال للفقراء أبداً. يصف نفسه بـ"أحد الفقراء غير المستحقين" ويُناقش قضيته بمنطق ترفيهي لشخص فكّر بجدية في كيفية ألا يكون له ضمير. يُسعد هيغنز ذكاء دوليتل وغياب خجله تماماً لدرجة أنه يُعطيه الخمسة جنيهات. يُخبئها دوليتل في جيبه بارتياح تام ويستعد للمغادرة. وهو يتجه نحو الباب، تخطو شابة نظيفة مُرتدية ثياباً جميلة — ولا يتعرف عليها. تضطر لإخباره: إنها إليزا، ابنته.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza's father arrives to sell her for £5. He fails to recognise his own daughter after her bath and new clothes — proof the transformation has already begun.</p>
+          <p class="ar" style="margin-top:.4rem;">والد إليزا يصل ليبيعها بـ5 جنيهات. لا يتعرف على ابنته بعد الحمام وتغيير ثيابها — دليل على أن التحول بدأ فعلاً.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Doolittle is Shaw's great comic weapon — through him, Shaw mocks the entire Victorian idea that poverty is a moral failure. Doolittle is poor and knows it, and he doesn't care.</p>
+          <p class="ar" style="margin-top:.4rem;">دوليتل هو السلاح الكوميدي العظيم لشو — من خلاله يسخر شو من الفكرة الفيكتورية بأكملها القائلة بأن الفقر فشل أخلاقي. دوليتل فقير ويعرف ذلك، ولا يهتم.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="act-nav">
+    <button class="anb" onclick="show('act1')">← Act I</button>
+    <button class="anb" onclick="show('act3')">Act III →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════ ACT III ═══════════════════ -->
+<section id="act3">
+  <div class="act-header ah3">
+    <div class="act-num">ACT III</div>
+    <div class="act-title-en">The First Public Test</div>
+    <div class="act-title-ar">الاختبار العام الأول</div>
+    <div class="act-setting">📍 Mrs. Higgins's Drawing Room, Chelsea Embankment · Afternoon, several months later</div>
+  </div>
+
+  <!-- SCENE 1 -->
+  <div class="scene-card">
+    <div class="scene-illus ah3" style="background:linear-gradient(160deg,#0e4d27,#1e8449);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- elegant room window -->
+        <rect x="200" y="15" width="80" height="90" rx="4" fill="#ffffff06" stroke="#ffffff15" stroke-width="1.5"/>
+        <line x1="240" y1="15" x2="240" y2="105" stroke="#ffffff15" stroke-width="1"/>
+        <line x1="200" y1="60" x2="280" y2="60" stroke="#ffffff15" stroke-width="1"/>
+        <!-- flower pot on sill -->
+        <rect x="222" y="95" width="16" height="12" rx="3" fill="#7d3c00" opacity=".5"/>
+        <circle cx="230" cy="90" r="8" fill="#27ae60" opacity=".5"/>
+        <!-- Mrs Higgins seated elegant -->
+        <circle cx="80" cy="65" r="11" fill="#d4ac6e" opacity=".7"/>
+        <rect x="70" y="76" width="20" height="30" rx="5" fill="#9b59b6" opacity=".5"/>
+        <!-- Higgins standing arms out -->
+        <circle cx="145" cy="58" r="11" fill="#c9a84c" opacity=".7"/>
+        <rect x="135" y="69" width="20" height="32" rx="4" fill="#c9a84c" opacity=".5"/>
+        <line x1="124" y1="75" x2="135" y2="80" stroke="#c9a84c" stroke-width="2" opacity=".5"/>
+        <line x1="155" y1="75" x2="166" y2="78" stroke="#c9a84c" stroke-width="2" opacity=".5"/>
+        <!-- warning sign -->
+        <polygon points="155,25 175,55 135,55" fill="#e74c3c" opacity=".25" stroke="#e74c3c" stroke-width="1.5"/>
+        <text x="151" y="47" font-size="14" fill="#e74c3c" opacity=".7">!</text>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act3);">Act III · Scene 1</div>
+      <div class="scene-title">Higgins Prepares His Mother — and Himself</div>
+      <div class="scene-title-ar">هيغنز يُعدّ أمه — ونفسه</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Several months have passed. The lessons have been gruelling. Eliza has been drilled daily in pronunciation, vocabulary, posture, and manners. Now Higgins wants to conduct a first small test in public. He arrives, unannounced, at the drawing room of his mother, Mrs. Higgins — an elegant, cultured woman who has long since given up trying to correct her son's terrible social manners. Higgins, despite being a professor of manners to others, is himself restless, tactless, and incapable of sitting still or making polite small talk. Mrs. Higgins scolds him immediately: he promised not to come on her at-home day, when she has guests. Higgins ignores the scolding and excitedly tells her he has brought a girl he has been working on — she will be arriving shortly. He wants to see how she handles a social occasion. He has instructed Eliza to talk only about safe, neutral topics: the weather and how everyone is feeling. Nothing more.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          مرّت عدة أشهر. كانت الدروس مُجهِدة. تلقّت إليزا تدريباً يومياً على النطق والمفردات والمشية والآداب. الآن يريد هيغنز إجراء اختبار عام أول صغير. يصل بلا إخطار مسبق إلى غرفة استقبال أمه السيدة Higgins — امرأة أنيقة مُثقفة تخلّت منذ أمد عن محاولة تصحيح أخلاق ابنها الاجتماعية الفظّة. هيغنز، رغم كونه أستاذاً للآداب لغيره، هو نفسه قلق ودبلوماسيته معدومة وعاجز عن الجلوس بثبات أو ممارسة أحاديث مجاملة لطيفة. تُعنّفه السيدة Higgins فوراً: وعد بعدم الحضور في يوم زياراتها حين تكون لديها ضيوف. يتجاهل هيغنز التعنيف ويُخبرها بإثارة أنه أحضر فتاةً كان يعمل عليها — ستصل قريباً. يريد أن يرى كيف تتعامل في مناسبة اجتماعية. أوصى إليزا بالحديث فقط عن مواضيع آمنة محايدة: الطقس وكيف يشعر الجميع. لا شيء غير ذلك.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Higgins uses his mother's elegant social gathering as a testing ground for Eliza, without asking anyone's permission.</p>
+          <p class="ar" style="margin-top:.4rem;">هيغنز يستخدم التجمع الاجتماعي الأنيق لأمه كأرض اختبار لإليزا، دون استئذان أحد.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Mrs. Higgins is one of the few characters who sees the experiment clearly and asks the question no one else is asking: what will happen to Eliza afterward?</p>
+          <p class="ar" style="margin-top:.4rem;">السيدة هيغنز واحدة من الشخصيات القليلة التي ترى التجربة بوضوح وتطرح السؤال الذي لا يسأله أحد: ماذا سيحدث لإليزا بعدها؟</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 2 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#0d3d1e,#1a6b35);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- elegant eliza center -->
+        <circle cx="160" cy="58" r="13" fill="#e8c96a" opacity=".8"/>
+        <rect x="148" y="71" width="24" height="38" rx="6" fill="#e8d4a0" opacity=".55"/>
+        <!-- elegant hat -->
+        <ellipse cx="160" cy="47" rx="16" ry="6" fill="#c9a84c" opacity=".7"/>
+        <rect x="152" y="41" width="16" height="8" rx="3" fill="#c9a84c" opacity=".6"/>
+        <!-- surprised guests left and right -->
+        <circle cx="60" cy="65" r="10" fill="#b0a898" opacity=".65"/>
+        <rect x="52" y="75" width="16" height="25" rx="4" fill="#b0a898" opacity=".45"/>
+        <circle cx="260" cy="65" r="10" fill="#d4ac6e" opacity=".65"/>
+        <rect x="252" y="75" width="16" height="25" rx="4" fill="#d4ac6e" opacity=".45"/>
+        <!-- speech bubble from eliza with shock words -->
+        <rect x="170" y="28" width="90" height="22" rx="6" fill="#ffffff12" stroke="#ffffff20" stroke-width="1"/>
+        <text x="178" y="43" font-size="9" fill="#ffffff80">not on your life!</text>
+        <!-- sparkles around Eliza -->
+        <text x="130" y="42" font-size="12" fill="#ffd700" opacity=".6">✦</text>
+        <text x="186" y="50" font-size="10" fill="#ffd700" opacity=".5">✦</text>
+        <!-- freddy heart -->
+        <text x="90" y="50" font-size="14" fill="#e74c3c" opacity=".5">♥</text>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act3);">Act III · Scene 2</div>
+      <div class="scene-title">Eliza Meets the Guests — Triumph and Disaster</div>
+      <div class="scene-title-ar">إليزا تلتقي بالضيوف — نجاح وكارثة</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Among Mrs. Higgins's guests that afternoon are Mrs. Eynsford Hill, her daughter Clara, and her son Freddy — the same family from the rainy portico, though none of them recognise the flower girl they once looked down upon. Eliza arrives. She is breathtaking. Her dress, her posture, and above all her flawless pronunciation leave everyone stunned. She greets the room with perfect formality. For a while, everything goes beautifully. Then Eliza begins talking. She sticks to safe subjects at first — the weather, health — and it goes well. But then she mentions, in her newly perfect accent, a story about her aunt's death that involves strong suspicion of gin, a wild family brawl, and a hat. The language is technically correct but the content is entirely unsuitable for polite company. Everyone is frozen in a mix of horror and helpless laughter. Freddy is completely enchanted — he thinks her scandalous stories are the most thrilling thing he has ever heard. Clara, who mistakes Eliza's shocking remarks for fashionable new slang, declares she will start using the same expressions at once.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          من بين ضيوف السيدة Higgins في تلك العصرية: السيدة Eynsford Hill وابنتها Clara وابنها Freddy — نفس العائلة من رواق الليلة الماطرة، وإن لم يتعرف أيٌّ منهم على بائعة الزهور التي كانوا ينظرون إليها بازدراء يوماً ما. تصل إليزا. إنها مذهلة. ثوبها وهيئتها وفوق كل شيء نطقها المعصوم يُذهل الجميع. تحيي القاعة بشكل رسمي مثالي. لفترة، يسير كل شيء بروعة. ثم تبدأ إليزا بالحديث. تلتزم بالمواضيع الآمنة في البداية — الطقس والصحة — وتسير الأمور جيداً. لكنها تذكر بعدها، بنطقها الجديد الفصيح، قصة عن وفاة عمتها تتضمن شكوكاً قوية تتعلق بالجن، وشجار عائلي حاد، وقبعة. اللغة صحيحة تقنياً لكن المضمون غير مناسب إطلاقاً للمجتمع المهذب. يتجمد الجميع في خليط من الرعب والضحك القهري. Freddy مفتون تماماً — يعتقد أن قصصها المثيرة للجدل هي أكثر ما سمعه إثارةً في حياته. Clara، التي تُخطئ فتعتبر ملاحظات إليزا الصادمة عبارات عصرية جديدة، تُعلن أنها ستبدأ باستخدام نفس التعبيرات فوراً.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza's first public test is a half-success. Her accent and appearance are perfect. Her choice of topics is catastrophically wrong. Freddy falls for her immediately.</p>
+          <p class="ar" style="margin-top:.4rem;">أول اختبار عام لإليزا هو نجاح جزئي. لهجتها ومظهرها مثاليان. اختيارها للمواضيع كارثي. Freddy يقع في غرامها فوراً.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Shaw is showing us that you cannot train only the accent. Real class is a whole culture — it includes what you talk about and what you know not to say.</p>
+          <p class="ar" style="margin-top:.4rem;">شو يُريّنا أنك لا تستطيع تدريب اللهجة وحدها. الطبقة الحقيقية ثقافة كاملة — تشمل ما تتحدث عنه وما تعرف ألا تقوله.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#0a2e14,#155a2a);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- Mrs Higgins wise figure -->
+        <circle cx="90" cy="62" r="12" fill="#9b59b6" opacity=".7"/>
+        <rect x="79" y="74" width="22" height="35" rx="5" fill="#9b59b6" opacity=".5"/>
+        <!-- thinking cloud -->
+        <circle cx="120" cy="40" r="10" fill="#ffffff10"/>
+        <circle cx="132" cy="34" r="8" fill="#ffffff08"/>
+        <circle cx="140" cy="40" r="12" fill="#ffffff10"/>
+        <circle cx="130" cy="50" r="5" fill="#ffffff06"/>
+        <!-- question mark in cloud -->
+        <text x="131" y="44" font-size="12" fill="#ffffff50">?</text>
+        <!-- Higgins self conscious -->
+        <circle cx="230" cy="62" r="12" fill="#c9a84c" opacity=".65"/>
+        <rect x="219" y="74" width="22" height="35" rx="4" fill="#c9a84c" opacity=".45"/>
+        <!-- downward arrow mood -->
+        <path d="M230 54 L230 46" stroke="#ffffff40" stroke-width="2"/>
+        <path d="M226 50 L230 46 L234 50" fill="#ffffff40"/>
+        <!-- eliza small worried -->
+        <circle cx="160" cy="68" r="10" fill="#e8c96a" opacity=".6"/>
+        <rect x="152" y="78" width="16" height="28" rx="4" fill="#e8c96a" opacity=".4"/>
+        <!-- worried brow lines -->
+        <path d="M155 64 Q160 62 165 64" stroke="#ffffff40" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act3);">Act III · Scene 3</div>
+      <div class="scene-title">Mrs. Higgins Asks the Question Nobody Else Asks</div>
+      <div class="scene-title-ar">السيدة هيغنز تطرح السؤال الذي لا يطرحه أحد</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          After the guests leave, Mrs. Higgins turns to her son and Pickering. She is not impressed by the experiment — she is troubled by it. She points out something that neither Higgins nor Pickering has thought about for a single moment: what will happen to Eliza when all this is over? They have trained her into a position where she is no longer fit for her old life but does not actually belong in the new one either. She cannot sell flowers. She cannot marry beneath her new accent. She cannot marry above it because she has no money or family to offer. Higgins waves the concern away. The experiment is the thing. The ending will sort itself out. Mrs. Higgins shakes her head. She does not share his certainty — and she is right not to.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          بعد مغادرة الضيوف، تلتفت السيدة Higgins إلى ابنها وبيكرينج. إنها ليست مبهورة بالتجربة — بل قلقة منها. تُشير إلى شيء لم يُفكر فيه هيغنز ولا بيكرينج للحظة واحدة: ماذا سيحدث لإليزا حين ينتهي كل هذا؟ لقد دربوها حتى وصلت إلى وضع حيث لم تعد تصلح لحياتها القديمة، لكنها لا تنتمي فعلياً للحياة الجديدة. لا تستطيع بيع الزهور. ولا تستطيع الزواج دون مستوى لهجتها الجديدة. ولا فوقه لأنه ليس لديها مال أو عائلة تقدمها. يتجاهل هيغنز القلق. التجربة هي المهمة. النهاية ستُرتّب نفسها. تهزّ السيدة Higgins رأسها. إنها لا تشاركه يقينه — وهي محقة في ذلك.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Mrs. Higgins raises the central moral problem of the play: Eliza has been changed into someone who doesn't fit anywhere. What now?</p>
+          <p class="ar" style="margin-top:.4rem;">السيدة هيغنز تطرح المشكلة الأخلاقية المحورية في المسرحية: لقد تحولت إليزا إلى شخص لا ينتمي لأي مكان. ماذا الآن؟</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Shaw places this warning exactly at the midpoint of the play. Everything that happens in Acts IV and V will be the answer to Mrs. Higgins's unanswered question.</p>
+          <p class="ar" style="margin-top:.4rem;">يضع شو هذا التحذير في منتصف المسرحية تماماً. كل ما سيحدث في الفصلين الرابع والخامس سيكون الإجابة على سؤال السيدة هيغنز الذي لم يُجَب عنه.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="act-nav">
+    <button class="anb" onclick="show('act2')">← Act II</button>
+    <button class="anb" onclick="show('act4')">Act IV →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════ ACT IV ═══════════════════ -->
+<section id="act4">
+  <div class="act-header ah4">
+    <div class="act-num">ACT IV</div>
+    <div class="act-title-en">The Night After the Triumph</div>
+    <div class="act-title-ar">ليلة ما بعد الانتصار</div>
+    <div class="act-setting">📍 Higgins's Study, Wimpole Street · Late night, after the Ambassador's party</div>
+  </div>
+
+  <!-- SCENE 1 -->
+  <div class="scene-card">
+    <div class="scene-illus ah4" style="background:linear-gradient(160deg,#4a235a,#7d3c98);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- trophy / crown -->
+        <polygon points="160,20 175,45 200,38 185,60 160,52 135,60 120,38 145,45" fill="#ffd700" opacity=".25" stroke="#ffd700" stroke-width="1.5"/>
+        <text x="150" y="48" font-size="16" fill="#ffd700" opacity=".6">♛</text>
+        <!-- higgins relaxed in chair -->
+        <circle cx="100" cy="72" r="12" fill="#c9a84c" opacity=".7"/>
+        <rect x="86" y="82" width="28" height="38" rx="6" fill="#c9a84c" opacity=".45"/>
+        <!-- pickering nearby -->
+        <circle cx="155" cy="72" r="10" fill="#b0a898" opacity=".65"/>
+        <rect x="144" y="82" width="22" height="32" rx="5" fill="#b0a898" opacity=".45"/>
+        <!-- both ignoring eliza -->
+        <circle cx="245" cy="75" r="11" fill="#e8c96a" opacity=".6"/>
+        <rect x="235" y="86" width="20" height="32" rx="5" fill="#e8c96a" opacity=".4"/>
+        <!-- eliza alone with invisible wall -->
+        <path d="M205 60 L205 120" stroke="#ffffff15" stroke-width="2" stroke-dasharray="6 4"/>
+        <!-- ignored X marks -->
+        <text x="220" y="58" font-size="14" fill="#e74c3c" opacity=".4">✕</text>
+        <!-- eliza tear drop -->
+        <ellipse cx="242" cy="96" rx="3" ry="4" fill="#3498db" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act4);">Act IV · Scene 1</div>
+      <div class="scene-title">The Triumph — and Eliza is Invisible</div>
+      <div class="scene-title-ar">الانتصار — وإليزا غير مرئية</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          The Ambassador's party has been an extraordinary success. Eliza performed flawlessly. She fooled everyone — including a former student of Higgins named Nepommuck, who specialises in detecting fake aristocrats, and who confidently declared to the Ambassador that Eliza must be a genuine foreign princess. The experiment is a total victory. Higgins and Pickering return home late, triumphant, and very pleased with themselves. They talk over the evening, congratulate each other, discuss what a boring ordeal the whole evening was, and agree they are glad it is finally over. Throughout all of this, Eliza sits in the room with them, still in her ball gown, having said nothing and been addressed about nothing. She removed the jewels Higgins gave her to wear and placed them on the table. She is exhausted, emotionally hollow, and completely invisible to both men.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          كانت حفلة السفير نجاحاً مذهلاً. أدّت إليزا دورها بشكل معصوم. خدعت الجميع — بما في ذلك طالب سابق لهيغنز يُدعى Nepommuck، متخصص في كشف الأرستقراطيين المزيفين، الذي أعلن بثقة للسفير أن إليزا يجب أن تكون أميرة أجنبية حقيقية. التجربة انتصار مطلق. يعود هيغنز وبيكرينج للمنزل متأخرَين، منتصرَين، راضيَين عن نفسيهما جداً. يتناقشان في مجريات الأمسية، يهنئ كل منهما الآخر، يتحدثان عن مدى ملل الأمسية كلها، ويتفقان على أنهما سعيدان بانتهائها أخيراً. طوال كل هذا، تجلس إليزا معهما في الغرفة، لا تزال بفستانها للحفلة، لم تنطق بكلمة ولم يُخاطبها أحد بكلمة. أزالت المجوهرات التي أعطاها إياها هيغنز لترتديها ووضعتها على الطاولة. إنها منهكة، فارغة عاطفياً، وغير مرئية تماماً للرجلَين.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>The bet is won. Higgins and Pickering celebrate — without Eliza. She sits among them, unseen, unacknowledged, and utterly forgotten.</p>
+          <p class="ar" style="margin-top:.4rem;">الرهان يُكسَب. هيغنز وبيكرينج يحتفلان — بدون إليزا. تجلس بينهما غير مرئية ولا يُعترف بها وتُنسى كلياً.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>This is the play's moral breaking point. Eliza worked as hard as either man — harder. And she is treated as if she is furniture. Her explosion is completely justified.</p>
+          <p class="ar" style="margin-top:.4rem;">هذه هي نقطة الانكسار الأخلاقية في المسرحية. عملت إليزا بنفس قدر الرجلَين — بل أكثر. وتُعامَل كأنها أثاث. انفجارها مُبرَّر تماماً.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 2 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#5b1f72,#9b59b6);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- slipper flying through air -->
+        <ellipse cx="170" cy="55" rx="28" ry="12" fill="#c9a84c" opacity=".4" transform="rotate(-25 170 55)"/>
+        <ellipse cx="168" cy="57" rx="20" ry="8" fill="#c9a84c" opacity=".5" transform="rotate(-25 168 57)"/>
+        <!-- motion lines from slipper -->
+        <line x1="145" y1="48" x2="110" y2="42" stroke="#c9a84c" stroke-width="2" stroke-dasharray="4 3" opacity=".5"/>
+        <line x1="148" y1="55" x2="112" y2="53" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="3 3" opacity=".35"/>
+        <!-- higgins surprised -->
+        <circle cx="80" cy="65" r="13" fill="#c9a84c" opacity=".7"/>
+        <rect x="68" y="78" width="24" height="35" rx="5" fill="#c9a84c" opacity=".5"/>
+        <!-- shock lines -->
+        <line x1="62" y1="52" x2="55" y2="45" stroke="#ffffff50" stroke-width="1.5"/>
+        <line x1="70" y1="50" x2="66" y2="42" stroke="#ffffff50" stroke-width="1.5"/>
+        <line x1="78" y1="51" x2="77" y2="43" stroke="#ffffff50" stroke-width="1.5"/>
+        <!-- eliza angry -->
+        <circle cx="255" cy="62" r="13" fill="#e8c96a" opacity=".75"/>
+        <rect x="243" y="75" width="24" height="35" rx="5" fill="#e8c96a" opacity=".55"/>
+        <!-- anger lines from eliza -->
+        <line x1="270" y1="52" x2="278" y2="45" stroke="#e74c3c" stroke-width="2" opacity=".6"/>
+        <line x1="260" y1="50" x2="265" y2="43" stroke="#e74c3c" stroke-width="2" opacity=".55"/>
+        <line x1="250" y1="53" x2="245" y2="46" stroke="#e74c3c" stroke-width="1.5" opacity=".5"/>
+        <!-- ring on table -->
+        <circle cx="160" cy="105" r="7" fill="none" stroke="#ffd700" stroke-width="2.5" opacity=".6"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act4);">Act IV · Scene 2</div>
+      <div class="scene-title">The Slippers — and Everything Breaks Open</div>
+      <div class="scene-title-ar">النعلان — وكل شيء ينفجر</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          The tension finally breaks. Higgins, heading to bed, notices his slippers are not where he left them and asks Eliza for them — as casually as if she were a servant. She brings them. And then she hurls them at him with all the force she has. Higgins is genuinely shocked. What follows is the most important confrontation in the play. Eliza tells him exactly what she feels: she is not a trophy. She is not a doll. She is a human being who has worked impossibly hard, who has been humiliated and drilled and shaped, and who has been given nothing in return — not a word of thanks, not a moment of recognition. She demands to know what is to become of her now. Higgins, completely unable to understand why she is upset, says she should be grateful — he has given her a better life. Eliza asks how she is supposed to live it. The argument grows fierce. She takes a ring Higgins once gave her as part of her duchess costume and places it quietly on the table. She is leaving.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          ينفجر التوتر أخيراً. هيغنز، وهو يتجه للنوم، يُلاحظ أن نعليه ليسا في مكانهما ويطلبهما من إليزا — بكل برود كأنها خادمة. تُحضرهما. ثم تُقذفهما عليه بكل قوتها. يُصاب هيغنز بصدمة حقيقية. ما يتلو ذلك هو المواجهة الأكثر أهمية في المسرحية. تُخبره إليزا بالضبط بما تشعر به: إنها ليست كأساً. إنها ليست دُمية. إنها إنسانة عملت بجهد مستحيل، وأُذلّت ودُرّبت وشُكّلت، ولم تتلقَّ شيئاً في المقابل — لا كلمة شكر، ولا لحظة اعتراف. تطالب بمعرفة ما سيحدث لها الآن. هيغنز، العاجز تماماً عن فهم سبب ضيقها، يقول إنها يجب أن تكون ممتنة — لقد منحها حياةً أفضل. تسأله إليزا كيف المفروض أن تعيشها. تشتد المشاجرة. تأخذ خاتماً أعطاها إياه هيغنز يوماً كجزء من زي الدوقة وتضعه بهدوء على الطاولة. إنها راحلة.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza throws the slippers and confronts Higgins. She places the ring on the table — rejecting the identity he built for her. She is leaving his house.</p>
+          <p class="ar" style="margin-top:.4rem;">إليزا تُقذف النعلَين وتُواجه هيغنز. تضع الخاتم على الطاولة — رافضةً الهوية التي بناها لها. إنها تغادر منزله.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>The ring is the play's most powerful image. Eliza is not rejecting Higgins's teaching — she is rejecting the idea that she belongs to him because of it.</p>
+          <p class="ar" style="margin-top:.4rem;">الخاتم هو الصورة الأكثر قوةً في المسرحية. إليزا لا ترفض تعليم هيغنز — بل ترفض فكرة أنها تنتمي إليه بسببه.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#3d1450,#6c3483);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- night street, lamp post -->
+        <rect x="158" y="20" width="4" height="95" rx="2" fill="#ffffff20"/>
+        <ellipse cx="160" cy="22" rx="16" ry="7" fill="#ffd700" opacity=".3"/>
+        <!-- glow -->
+        <circle cx="160" cy="25" r="20" fill="#ffd700" opacity=".05"/>
+        <!-- eliza walking with bag -->
+        <circle cx="100" cy="78" r="11" fill="#e8c96a" opacity=".7"/>
+        <rect x="90" y="89" width="20" height="30" rx="5" fill="#e8c96a" opacity=".5"/>
+        <rect x="108" y="95" width="14" height="10" rx="3" fill="#c9a84c" opacity=".4"/>
+        <!-- freddy waiting -->
+        <circle cx="230" cy="76" r="11" fill="#b0a898" opacity=".65"/>
+        <rect x="220" y="87" width="20" height="30" rx="5" fill="#b0a898" opacity=".45"/>
+        <!-- heart between them -->
+        <text x="154" y="80" font-size="18" fill="#e74c3c" opacity=".4">♥</text>
+        <!-- moonlight -->
+        <path d="M280 20 Q295 35 285 55 Q268 45 270 28 Q275 18 280 20Z" fill="#ffffff08"/>
+        <!-- stars -->
+        <text x="35" y="35" font-size="10" fill="#ffffff30">✦</text>
+        <text x="55" y="25" font-size="8" fill="#ffffff25">✦</text>
+        <text x="295" y="40" font-size="9" fill="#ffffff25">✦</text>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act4);">Act IV · Scene 3</div>
+      <div class="scene-title">Eliza Walks Out — and Freddy is Waiting</div>
+      <div class="scene-title-ar">إليزا تغادر — وفريدي ينتظر</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Eliza takes her things and leaves the house in the middle of the night. She steps out into the dark London street — and discovers that Freddy Eynsford Hill has been waiting outside, as he has been doing regularly since being entranced at Mrs. Higgins's tea party. He has been sending her passionate letters which she never answered. But tonight, alone in the dark for the first time in her new life, she finds him there. They embrace impulsively. For the first time, someone is glad to see her — not as an experiment, not as a test subject, but as a person he genuinely adores. Eliza has nowhere to go. She thinks of Mrs. Higgins — the one person who seemed to understand her situation and treat her with dignity. She decides to go there in the morning.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          تأخذ إليزا متعلقاتها وتغادر المنزل في منتصف الليل. تخطو إلى شارع لندن المظلم — وتكتشف أن Freddy Eynsford Hill كان ينتظر خارجاً، كما كان يفعل بانتظام منذ أن أُسِر بها في حفلة شاي السيدة Higgins. كان يُرسل إليها رسائل عاطفية لم تُجب عليها قط. لكن الليلة، وحيدةً في الظلام للمرة الأولى في حياتها الجديدة، تجده هناك. يتعانقان بتلقائية. للمرة الأولى، يسعد أحدٌ برؤيتها — لا كتجربة، ولا كعيّنة اختبار، بل كإنسانة يُعشقها حقاً. ليس لإليزا مكان تذهب إليه. تُفكر في السيدة Higgins — الشخص الوحيد الذي يبدو أنه فهم وضعها وعاملها بكرامة. تقرر الذهاب إليها في الصباح.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza leaves Higgins's house and finds Freddy waiting for her in the dark street. She discovers what it feels like to be genuinely wanted.</p>
+          <p class="ar" style="margin-top:.4rem;">إليزا تغادر منزل هيغنز وتجد Freddy ينتظرها في الشارع المظلم. تكتشف كيف يبدو الشعور بأن شخصاً يريدها حقاً.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Freddy offers Eliza something Higgins never could: uncomplicated love. He sees her — not a phonetics project or a social experiment, but her.</p>
+          <p class="ar" style="margin-top:.4rem;">يقدم Freddy لإليزا ما لم يستطع هيغنز تقديمه أبداً: حباً غير معقد. يراها — ليس مشروع صوتيات أو تجربة اجتماعية، بل هي.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="act-nav">
+    <button class="anb" onclick="show('act3')">← Act III</button>
+    <button class="anb" onclick="show('act5')">Act V →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════ ACT V ═══════════════════ -->
+<section id="act5">
+  <div class="act-header ah5">
+    <div class="act-num">ACT V</div>
+    <div class="act-title-en">The Resolution — Who Is Eliza Now?</div>
+    <div class="act-title-ar">الحل — من هي إليزا الآن؟</div>
+    <div class="act-setting">📍 Mrs. Higgins's Drawing Room · The following morning</div>
+  </div>
+
+  <!-- SCENE 1 -->
+  <div class="scene-card">
+    <div class="scene-illus ah5" style="background:linear-gradient(160deg,#784212,#ca6f1e);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- policeman silhouette -->
+        <circle cx="70" cy="65" r="11" fill="#3498db" opacity=".55"/>
+        <rect x="61" y="76" width="18" height="32" rx="4" fill="#3498db" opacity=".45"/>
+        <rect x="58" y="59" width="24" height="8" rx="3" fill="#2471a3" opacity=".6"/>
+        <!-- missing person poster -->
+        <rect x="120" y="40" width="55" height="70" rx="4" fill="#ffffff10" stroke="#ffffff25" stroke-width="1.5"/>
+        <text x="132" y="60" font-size="8" fill="#ffffff60">MISSING</text>
+        <circle cx="147" cy="78" r="12" fill="#e8c96a" opacity=".2" stroke="#e8c96a" stroke-width="1"/>
+        <text x="133" y="100" font-size="7" fill="#ffffff40">Eliza D.</text>
+        <!-- panicking higgins -->
+        <circle cx="230" cy="65" r="12" fill="#c9a84c" opacity=".7"/>
+        <rect x="219" y="77" width="22" height="33" rx="5" fill="#c9a84c" opacity=".5"/>
+        <!-- panic lines -->
+        <line x1="244" y1="53" x2="252" y2="46" stroke="#e74c3c" stroke-width="1.5" opacity=".6"/>
+        <line x1="236" y1="51" x2="239" y2="43" stroke="#e74c3c" stroke-width="1.5" opacity=".55"/>
+        <line x1="226" y1="54" x2="220" y2="47" stroke="#e74c3c" stroke-width="1.5" opacity=".5"/>
+        <!-- question marks -->
+        <text x="260" y="48" font-size="16" fill="#e74c3c" opacity=".5">?</text>
+        <text x="195" y="44" font-size="12" fill="#e74c3c" opacity=".4">?</text>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act5);">Act V · Scene 1</div>
+      <div class="scene-title">Higgins Reports Eliza Missing</div>
+      <div class="scene-title-ar">هيغنز يُبلّغ عن اختفاء إليزا</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          The next morning, Higgins arrives at his mother's house in a genuine state of alarm. He has reported Eliza's disappearance to the police as if she were a lost object. He is not distraught with worry for her wellbeing — he is irritated that his arrangements have been disrupted. He tells his mother frantically that Eliza has vanished, that she has run off, and that the whole experiment may be ruined. Mrs. Higgins listens calmly. She already knows perfectly well where Eliza is — she is upstairs in this very house. Eliza came to her this morning, which is exactly what Mrs. Higgins had quietly predicted in Act III. But before she can say anything, another visitor arrives at the door, and the situation becomes unexpectedly comic.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          في صباح اليوم التالي، يصل هيغنز إلى منزل أمه في حالة قلق حقيقي. لقد أبلغ الشرطة عن اختفاء إليزا كأنها شيء مفقود. ليس مضطرباً حرصاً على سلامتها — بل منزعج لأن ترتيباته قد اضطربت. يُخبر أمه بهستيريا أن إليزا اختفت، وأنها فرّت، وأن التجربة كلها قد تكون خُرّبت. تستمع السيدة Higgins بهدوء. إنها تعرف تماماً أين إليزا — إنها في الطابق العلوي في هذا البيت تحديداً. جاءت إليزا إليها هذا الصباح، وهو بالضبط ما توقعته السيدة Higgins بهدوء في الفصل الثالث. لكن قبل أن تتمكن من قول أي شيء، يصل زائر آخر إلى الباب، وتصبح الحالة بشكل غير متوقع كوميديةً.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Higgins arrives panicking about his "lost" Eliza. Mrs. Higgins knows she is safe upstairs — having predicted this moment all along.</p>
+          <p class="ar" style="margin-top:.4rem;">هيغنز يصل منهاراً بشأن إليزا "المفقودة". السيدة هيغنز تعرف أنها في أمان في الطابق العلوي — وقد توقعت هذه اللحظة طوال الوقت.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Higgins treats Eliza's disappearance like a missing item, not a missing person. This tells us everything about how he sees her — even now, even after everything.</p>
+          <p class="ar" style="margin-top:.4rem;">هيغنز يتعامل مع اختفاء إليزا كشيء مفقود لا شخص مفقود. هذا يُخبرنا كل شيء عن كيفية رؤيته لها — حتى الآن، حتى بعد كل شيء.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 2 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#6e3b0e,#b7600a);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- doolittle wedding dressed -->
+        <circle cx="160" cy="58" r="14" fill="#b07030" opacity=".75"/>
+        <rect x="147" y="72" width="26" height="42" rx="6" fill="#2c3e50" opacity=".6"/>
+        <!-- top hat -->
+        <rect x="153" y="38" width="14" height="18" rx="2" fill="#1a252f" opacity=".8"/>
+        <ellipse cx="160" cy="56" rx="18" ry="5" fill="#1a252f" opacity=".7"/>
+        <!-- wedding flower buttonhole -->
+        <circle cx="168" cy="78" r="4" fill="#e74c3c" opacity=".6"/>
+        <!-- chain around neck symbolic -->
+        <path d="M148 72 Q160 68 172 72" stroke="#ffd700" stroke-width="2" fill="none" opacity=".5"/>
+        <!-- speech bubble with lament -->
+        <rect x="185" y="30" width="100" height="40" rx="8" fill="#ffffff10" stroke="#ffffff20" stroke-width="1.5"/>
+        <text x="195" y="47" font-size="8" fill="#ffffff60">Middle class...</text>
+        <text x="195" y="60" font-size="8" fill="#ffffff50">it's a trap!</text>
+        <!-- small triangle arrow of speech bubble -->
+        <path d="M185 55 L175 65 L192 62Z" fill="#ffffff10"/>
+        <!-- pound signs floating -->
+        <text x="80" y="55" font-size="18" fill="#ffd700" opacity=".3">£</text>
+        <text x="55" y="80" font-size="14" fill="#ffd700" opacity=".25">£</text>
+        <text x="100" y="80" font-size="12" fill="#ffd700" opacity=".2">£</text>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act5);">Act V · Scene 2</div>
+      <div class="scene-title">Doolittle Returns — a Wealthy and Miserable Man</div>
+      <div class="scene-title-ar">دوليتل يعود — رجلٌ ثريٌّ وبائس</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Alfred Doolittle arrives at the door — dressed in the most respectable wedding clothes, looking entirely unlike the cheerful, dusty dustman of Act II. He has come to denounce Higgins. It turns out that Higgins, some time earlier, mentioned Doolittle in a letter to a rich American philanthropist named Ezra D. Wannafeller as "the most original moralist in England." The American took this seriously, and when he died, he left Doolittle a trust fund: three thousand pounds a year for life, on the condition that he lecture on moral reform. Doolittle is absolutely furious. He has lost everything that made his life pleasant. He now has money — which means he has responsibilities. He has to get properly married to his longtime companion. He has to maintain a household. He has to behave. He has to dress like this. He is becoming exactly the kind of middle-class man he spent his whole life mocking.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          يصل Alfred Doolittle إلى الباب — مُرتدياً أرقى ملابس زفاف، يبدو مختلفاً تماماً عن عامل النظافة المرح المُغبَّر في الفصل الثاني. جاء لإدانة هيغنز. اتضح أن هيغنز، في وقت سابق، ذكر دوليتل في رسالة إلى محسن أمريكي ثري يُدعى Ezra D. Wannafeller بوصفه "أكثر علماء الأخلاق أصالةً في إنجلترا". أخذ الأمريكي الأمر بجدية، وحين مات، ترك لدوليتل صندوق استئمان: ثلاثة آلاف جنيه سنوياً مدى الحياة، بشرط أن يُلقي محاضرات عن الإصلاح الأخلاقي. دوليتل غاضب تماماً. لقد فقد كل ما جعل حياته ممتعة. الآن لديه مال — مما يعني لديه مسؤوليات. عليه الزواج رسمياً من رفيقته منذ أمد. عليه إدارة منزل. عليه التصرف بلياقة. عليه الارتداء هكذا. إنه يصبح بالضبط النوع من الرجل الطبقة الوسطى الذي أمضى حياته كلها في السخرية منه.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Doolittle has been left a fortune — and he hates it. Money has enslaved him to the very "middle-class morality" he despised.</p>
+          <p class="ar" style="margin-top:.4rem;">دوليتل وُرّث ثروةً — ويكرهها. المال استعبده للـ"أخلاق الطبقة الوسطى" التي كان يحتقرها.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Doolittle's reversal mirrors Eliza's — both have been "improved" by Higgins and both have lost something they can never get back. Shaw is being very dark here beneath the comedy.</p>
+          <p class="ar" style="margin-top:.4rem;">انعكاس دوليتل يُعادل انعكاس إليزا — كلاهما "حُسِّن" من قِبَل هيغنز وكلاهما فقد شيئاً لن يعود. شو يكون قاسياً جداً هنا تحت الكوميديا.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#5d2e0c,#a04000);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- eliza standing tall center -->
+        <circle cx="160" cy="55" r="14" fill="#e8c96a" opacity=".85"/>
+        <rect x="148" y="69" width="24" height="42" rx="6" fill="#e8d4a0" opacity=".65"/>
+        <!-- crown above her head -->
+        <polygon points="160,28 168,40 175,33 170,47 150,47 145,33 152,40" fill="#ffd700" opacity=".5"/>
+        <!-- higgins deflated left -->
+        <circle cx="80" cy="68" r="11" fill="#c9a84c" opacity=".55"/>
+        <rect x="70" y="79" width="20" height="32" rx="5" fill="#c9a84c" opacity=".4"/>
+        <!-- downward slump -->
+        <path d="M80 79 Q78 90 75 98" stroke="#c9a84c" stroke-width="2" fill="none" opacity=".3"/>
+        <!-- pickering grateful right -->
+        <circle cx="240" cy="65" r="11" fill="#b0a898" opacity=".65"/>
+        <rect x="230" y="76" width="20" height="32" rx="5" fill="#b0a898" opacity=".45"/>
+        <!-- handshake eliza-pickering -->
+        <path d="M184 85 Q212 80 228 82" stroke="#27ae60" stroke-width="2.5" fill="none" opacity=".5"/>
+        <!-- light rays from eliza -->
+        <line x1="160" y1="40" x2="160" y2="25" stroke="#ffd700" stroke-width="1.5" opacity=".3"/>
+        <line x1="148" y1="44" x2="138" y2="32" stroke="#ffd700" stroke-width="1" opacity=".25"/>
+        <line x1="172" y1="44" x2="182" y2="32" stroke="#ffd700" stroke-width="1" opacity=".25"/>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act5);">Act V · Scene 3</div>
+      <div class="scene-title">Eliza Comes Downstairs — Changed Forever</div>
+      <div class="scene-title-ar">إليزا تنزل — متغيرة إلى الأبد</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          Eliza comes downstairs into the drawing room. She is composed, dignified, and completely in control of herself. She greets Pickering with warmth and genuine gratitude, addressing him by name as an equal. Then she speaks directly to Higgins — not as a pupil, not as an experiment, but as a person who has earned the right to speak plainly. She tells him exactly what she has learned: that it was not Higgins who taught her to be a lady. The lessons in pronunciation were Higgins's work. But her real transformation came from Colonel Pickering, who always treated her as a lady from the very first morning she walked into that laboratory — who called her "Miss Doolittle" even when she was still a flower girl, who never humiliated her, who never reduced her to a specimen. She tells Higgins she is now considering offering her knowledge and skills to his rival phonetician, and teaching him everything Higgins taught her.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          تنزل إليزا إلى غرفة الاستقبال. إنها هادئة، وقورة، ومسيطرة على نفسها تماماً. تُحيي Pickering بدفء وامتنان حقيقي، مُخاطِبةً إياه بالاسم كند. ثم تُخاطب هيغنز مباشرةً — لا كتلميذة، ولا كعيّنة تجربة، بل كإنسانة اكتسبت حق الكلام بصراحة. تُخبره بالضبط بما تعلّمته: أن هيغنز لم يكن من علّمها أن تكون سيدة. دروس النطق كانت عمل هيغنز. لكن تحولها الحقيقي جاء من الكولونيل Pickering، الذي عاملها كسيدة دائماً منذ صباح اليوم الأول حين دخلت ذلك المختبر — الذي ناداها بـ"آنسة Doolittle" حتى حين كانت لا تزال بائعة زهور، الذي لم يُذلّها قط، الذي لم يُختزلها في عيّنة قط. تُخبر هيغنز أنها تُفكر في عرض معرفتها ومهاراتها على منافسه في علم الصوتيات، وتعليمه كل ما علّمها هيغنز.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza credits Pickering — not Higgins — for making her a lady. She confronts Higgins as an equal and threatens to work for his rival.</p>
+          <p class="ar" style="margin-top:.4rem;">إليزا تنسب الفضل لبيكرينج — لا لهيغنز — في جعلها سيدة. تُواجه هيغنز كند وتهدد بالعمل لصالح منافسه.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>This is Shaw's great moral argument made clear: what truly transforms a person is not technique but respect. Pickering's ordinary human decency did more than Higgins's extraordinary genius.</p>
+          <p class="ar" style="margin-top:.4rem;">هذه هي الحجة الأخلاقية العظيمة لشو تتضح: ما يُحوّل الإنسان حقاً ليس التقنية بل الاحترام. اللياقة الإنسانية العادية لبيكرينج أفعلت أكثر مما فعله العبقري الاستثنائي لهيغنز.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4 -->
+  <div class="scene-card">
+    <div class="scene-illus" style="background:linear-gradient(160deg,#4a1e05,#8b3a00);">
+      <svg width="320" height="140" viewBox="0 0 320 140" fill="none">
+        <!-- wedding scene: doolittle + partner -->
+        <circle cx="90" cy="68" r="11" fill="#b07030" opacity=".7"/>
+        <rect x="80" y="79" width="20" height="30" rx="5" fill="#2c3e50" opacity=".55"/>
+        <circle cx="115" cy="68" r="10" fill="#d4ac6e" opacity=".65"/>
+        <rect x="106" y="79" width="18" height="30" rx="5" fill="#fff" opacity=".15"/>
+        <!-- wedding arch -->
+        <path d="M60 50 Q90 20 120 50" stroke="#ffd700" stroke-width="2" fill="none" opacity=".35"/>
+        <!-- flowers on arch -->
+        <circle cx="72" cy="42" r="5" fill="#e74c3c" opacity=".4"/>
+        <circle cx="108" cy="42" r="5" fill="#e74c3c" opacity=".4"/>
+        <circle cx="90" cy="24" r="6" fill="#f39c12" opacity=".4"/>
+        <!-- eliza and freddy right -->
+        <circle cx="215" cy="68" r="11" fill="#e8c96a" opacity=".75"/>
+        <rect x="206" y="79" width="18" height="30" rx="5" fill="#e8c96a" opacity=".5"/>
+        <circle cx="240" cy="68" r="11" fill="#b0a898" opacity=".65"/>
+        <rect x="230" y="79" width="18" height="30" rx="5" fill="#b0a898" opacity=".45"/>
+        <!-- heart between eliza freddy -->
+        <text x="224" y="58" font-size="14" fill="#e74c3c" opacity=".5">♥</text>
+        <!-- flower shop sign top right -->
+        <rect x="265" y="20" width="45" height="28" rx="4" fill="#27ae60" opacity=".15" stroke="#27ae60" stroke-width="1.5"/>
+        <text x="270" y="33" font-size="7" fill="#27ae60" opacity=".6">Flower</text>
+        <text x="272" y="43" font-size="7" fill="#27ae60" opacity=".5">Shop</text>
+      </svg>
+    </div>
+    <div class="scene-body">
+      <div class="scene-num" style="color:var(--act5);">Act V · Scene 4</div>
+      <div class="scene-title">The Ending — and What Happens After</div>
+      <div class="scene-title-ar">النهاية — وما يحدث بعدها</div>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p class="narration-en">
+          The confrontation between Eliza and Higgins ends without a clean resolution. Higgins refuses to change. He tells Eliza she should come back to Wimpole Street and that they will be perfectly fine — on his terms, as his assistant, as someone useful to him. He does not offer her love, equality, or security. He offers her usefulness. Eliza refuses. She knows that going back on those terms means accepting that she is less than a full person in his life. The play ends with Higgins laughing to himself, certain she will come back, and Eliza heading to Doolittle's wedding with Pickering and Mrs. Higgins. Shaw added an afterword making clear what he intended: Eliza marries Freddy Eynsford Hill. With Pickering's financial help, they open a flower shop. It is a modest, struggling life — but it is entirely hers. Higgins never marries. He remains certain, in his privately deluded way, that Eliza belongs to him. She does not.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">العربية</div>
+        <p class="narration-ar">
+          المواجهة بين إليزا وهيغنز تنتهي دون حل واضح. هيغنز يرفض التغيير. يُخبر إليزا أنها يجب أن تعود إلى وِيمبول ستريت وأنهم سيكونون بخير تماماً — بشروطه، كمساعدته، كشخص مفيد له. لا يعرض عليها الحب أو المساواة أو الأمان. يعرض عليها الاستفادة منها. إليزا ترفض. تعرف أن العودة بتلك الشروط تعني قبول أنها أقل من إنسانة كاملة في حياته. تنتهي المسرحية وهيغنز يضحك لنفسه، مُتيقناً أنها ستعود، وإليزا تتجه إلى زفاف دوليتل مع بيكرينج والسيدة Higgins. أضاف شو ملحوظة تُوضّح ما قصده: إليزا تتزوج Freddy Eynsford Hill. بمساعدة مالية من Pickering، يفتحان محلاً للزهور. إنها حياة متواضعة مجاهدة — لكنها ملكها تماماً. هيغنز لا يتزوج أبداً. يظل مُتيقناً، بطريقته الوهمية الخاصة، بأن إليزا تنتمي إليه. لكنها لا تنتمي.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box ib-what">
+          <div class="info-box-title">What happens here?</div>
+          <p>Eliza refuses to return to Higgins on his terms. She marries Freddy and opens a flower shop. She has built a life that is completely her own.</p>
+          <p class="ar" style="margin-top:.4rem;">إليزا ترفض العودة لهيغنز بشروطه. تتزوج Freddy وتفتح محل زهور. لقد بنت حياةً ملكها تماماً.</p>
+        </div>
+        <div class="info-box ib-why">
+          <div class="info-box-title">Why this matters</div>
+          <p>Shaw insists this is NOT a love story between Eliza and Higgins. It is a story about a woman discovering she is a person. The flower shop is her independence — imperfect but entirely real.</p>
+          <p class="ar" style="margin-top:.4rem;">شو يُصرّ على أن هذه ليست قصة حب بين إليزا وهيغنز. إنها قصة امرأة تكتشف أنها إنسانة. محل الزهور هو استقلاليتها — غير مثالية لكنها حقيقية كلياً.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="act-nav">
+    <button class="anb" onclick="show('act4')">← Act IV</button>
+    <button class="anb" onclick="show('quiz')">Quiz →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════ QUIZ ═══════════════════ -->
+<section id="quiz">
+  <div class="section-badge">Test Yourself · اختبر نفسك</div>
+  <h1>Story <em>Quiz</em></h1>
+  <p class="subtitle">Questions about the five acts only. اختبر فهمك للقصة</p>
+  <div class="qwrap">
+    <div id="qc"></div>
+    <div class="score-box" id="sb">
+      <div class="score-n" id="sn">0/6</div>
+      <div class="score-l">Your Score · نتيجتك</div>
+      <div class="score-msg" id="sm"></div>
+      <button class="btn-restart" onclick="buildQuiz()">Try Again · حاول مجدداً</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ GLOSSARY ═══════════════════ -->
+<section id="glossary">
+  <div class="section-badge">Key Story Terms · مصطلحات القصة</div>
+  <h1>Story <em>Glossary</em></h1>
+  <p class="subtitle">Words and names you need to follow the play · المصطلحات والأسماء الضرورية لمتابعة المسرحية</p>
+  <div class="gloss-grid">
+
+    <div class="gi">
+      <div class="gi-term">Eliza Doolittle</div>
+      <div class="gi-ar">إليزا دوليتل</div>
+      <div class="gi-def">The flower girl from Covent Garden who asks Higgins to teach her to speak properly. The true hero of the play.</div>
+      <div class="gi-def-ar">بائعة الزهور من كوفنت غاردن التي تطلب من هيغنز تعليمها النطق الصحيح. البطلة الحقيقية للمسرحية.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Professor Henry Higgins</div>
+      <div class="gi-ar">الأستاذ هنري هيغنز</div>
+      <div class="gi-def">A brilliant but tactless professor of phonetics. He sees people as sound patterns, not human beings — and this blindness is his great flaw.</div>
+      <div class="gi-def-ar">أستاذ صوتيات موهوب لكن فظّ. يرى الناس كأنماط صوتية لا كبشر — وهذا العمى هو عيبه الكبير.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Colonel Pickering</div>
+      <div class="gi-ar">الكولونيل بيكرينج</div>
+      <div class="gi-def">A linguist from India who makes the bet with Higgins. He treats Eliza with consistent courtesy — and this, more than lessons, transforms her.</div>
+      <div class="gi-def-ar">خبير لغوي من الهند يُبرم الرهان مع هيغنز. يعامل إليزا باحترام ثابت — وهذا، أكثر من الدروس، يُحوّلها.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Mrs. Pearce</div>
+      <div class="gi-ar">السيدة بيرس</div>
+      <div class="gi-def">Higgins's housekeeper. A dignified, practical woman who often has to correct Higgins's own bad manners and who raises moral objections to the experiment.</div>
+      <div class="gi-def-ar">مربية هيغنز. امرأة وقورة وعملية غالباً ما تصحح آداب هيغنز السيئة وترفع اعتراضات أخلاقية على التجربة.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Mrs. Higgins</div>
+      <div class="gi-ar">السيدة هيغنز</div>
+      <div class="gi-def">Henry's intelligent, cultured mother. She is the only character who immediately sees the moral problem with the experiment and asks what will happen to Eliza afterward.</div>
+      <div class="gi-def-ar">أم هنري المثقفة الذكية. إنها الشخصية الوحيدة التي ترى فوراً المشكلة الأخلاقية في التجربة وتسأل ماذا سيحدث لإليزا بعدها.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Alfred Doolittle</div>
+      <div class="gi-ar">ألفريد دوليتل</div>
+      <div class="gi-def">Eliza's father, a dustman who is shamelessly cheerful about his poverty. When he accidentally inherits a fortune, he becomes the very thing he hated: a respectable middle-class man.</div>
+      <div class="gi-def-ar">والد إليزا، عامل نظافة مُبتهج بلا حياء بشأن فقره. حين يرث ثروةً بالصدفة، يصبح الشيء الذي كرهه: رجل طبقة وسطى محترم.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Freddy Eynsford Hill</div>
+      <div class="gi-ar">فريدي إينسفورد هيل</div>
+      <div class="gi-def">A well-bred but financially poor young man who falls in love with Eliza. He marries her at the end and they open a flower shop together.</div>
+      <div class="gi-def-ar">شاب حسن التربية لكن فقير مالياً يقع في حب إليزا. يتزوجها في النهاية ويفتحان معاً محلاً للزهور.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">The Bet</div>
+      <div class="gi-ar">الرهان</div>
+      <div class="gi-def">Pickering bets Higgins he cannot pass Eliza off as a duchess within six months. Pickering will cover all costs. Higgins wins — but the victory reveals deeper problems.</div>
+      <div class="gi-def-ar">يُراهن بيكرينج هيغنز بأنه لا يستطيع تقديم إليزا كدوقة خلال ستة أشهر. بيكرينج سيتحمل كل التكاليف. هيغنز يفوز — لكن الفوز يكشف مشاكل أعمق.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Covent Garden</div>
+      <div class="gi-ar">كوفنت غاردن</div>
+      <div class="gi-def">The market district in central London where Act I takes place. The place where Eliza sells flowers and where Higgins and Pickering meet.</div>
+      <div class="gi-def-ar">حي السوق في وسط لندن حيث يجري الفصل الأول. المكان الذي تبيع فيه إليزا الزهور ويلتقي هيغنز وبيكرينج.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Wimpole Street</div>
+      <div class="gi-ar">وِيمبول ستريت</div>
+      <div class="gi-def">The address of Higgins's home and laboratory at number 27A. This is where Eliza lives and trains for most of the play.</div>
+      <div class="gi-def-ar">عنوان منزل ومختبر هيغنز في الرقم 27A. هنا تعيش إليزا وتتدرب خلال معظم المسرحية.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">Phonetics</div>
+      <div class="gi-ar">علم الصوتيات</div>
+      <div class="gi-def">The science of speech sounds. Higgins uses his knowledge of phonetics to identify people's birthplaces and to transform Eliza's cockney accent.</div>
+      <div class="gi-def-ar">علم أصوات الكلام. يستخدم هيغنز معرفته بالصوتيات لتحديد أماكن ولادة الناس ولتحويل لهجة إليزا الكوكنية.</div>
+    </div>
+
+    <div class="gi">
+      <div class="gi-term">The Slippers</div>
+      <div class="gi-ar">النعلان</div>
+      <div class="gi-def">In Act IV, Eliza hurls Higgins's slippers at him in fury. The moment when she stops being passive and asserts herself as a full human being.</div>
+      <div class="gi-def-ar">في الفصل الرابع، ترمي إليزا نعلَي هيغنز عليه بغضب. اللحظة التي تتوقف فيها عن السلبية وتؤكد نفسها كإنسانة كاملة.</div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// ── NAVIGATION ──
+const ALL=['home','act1','act2','act3','act4','act5','quiz','glossary'];
+function show(id){
+  ALL.forEach(s=>document.getElementById(s).classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nb').forEach(b=>{
+    b.classList.remove('active');
+    if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+id+"'"))b.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  const idx=ALL.indexOf(id);
+  document.getElementById('prog-bar').style.width=((idx+1)/ALL.length*100)+'%';
+}
+
+// ── TOGGLE ──
+function toggleContent(btn){
+  btn.classList.toggle('open');
+  const c=btn.nextElementSibling;
+  c.classList.toggle('open');
+  const sp=btn.querySelector('span');
+  if(!sp.dataset.orig)sp.dataset.orig=sp.textContent;
+  sp.textContent=c.classList.contains('open')?'Show less':sp.dataset.orig;
+}
+
+// ── QUIZ ──
+const qs=[
+  {
+    q:"In Act I, why does Eliza panic when she sees Higgins writing in his notebook?",
+    qa:"في الفصل الأول، لماذا تنتابها الذعر حين ترى هيغنز يكتب في دفتره؟",
+    opts:["She thinks he is a journalist","She thinks he is a police informer who will get her arrested","She recognises him from before","She wants him to stop recording her songs"],
+    ans:1,
+    exp:"Eliza feared the man was a police informer — in those times, a poor woman talking to men on the street could be accused of solicitation."
+  },
+  {
+    q:"What bet does Pickering make with Higgins in Act II?",
+    qa:"ما الرهان الذي يُقدمه بيكرينج لهيغنز في الفصل الثاني؟",
+    opts:["That Eliza can learn Hindi in three months","That Higgins cannot pass Eliza off as a duchess within six months","That Higgins will fall in love with Eliza","That Doolittle will stop drinking"],
+    ans:1,
+    exp:"Pickering bets Higgins that he cannot pass Eliza off as a duchess at a great social event within six months. Pickering agrees to pay all expenses."
+  },
+  {
+    q:"In Act II, why does Doolittle come to Higgins's house?",
+    qa:"في الفصل الثاني، لماذا يأتي دوليتل إلى منزل هيغنز؟",
+    opts:["To demand his daughter back immediately","To warn Higgins about Eliza's bad habits","To sell his daughter for five pounds","To apply for a job as Higgins's assistant"],
+    ans:2,
+    exp:"Doolittle does not want his daughter back. He simply wants five pounds for her — and he argues his case without any shame whatsoever."
+  },
+  {
+    q:"In Act III, what goes wrong at Eliza's first social test at Mrs. Higgins's house?",
+    qa:"في الفصل الثالث، ما الذي يسوء في الاختبار الاجتماعي الأول لإليزا في منزل السيدة هيغنز؟",
+    opts:["Her accent slips back to cockney","Her clothes are wrong for the occasion","Her pronunciation is perfect but her stories are completely inappropriate for polite company","She refuses to speak at all"],
+    ans:2,
+    exp:"Eliza's pronunciation and dress are flawless. But she tells shocking stories about her family — technically in perfect English, but entirely unsuitable for polite society."
+  },
+  {
+    q:"In Act IV, what does Eliza throw at Higgins after the Ambassador's party?",
+    qa:"في الفصل الرابع، ماذا ترمي إليزا على هيغنز بعد حفلة السفير؟",
+    opts:["A ring","A bouquet of flowers","His slippers","A book"],
+    ans:2,
+    exp:"Eliza hurls Higgins's slippers at him in fury — the explosive moment when she stops being treated as invisible and asserts herself as a full human being."
+  },
+  {
+    q:"At the end of Act V, who does Eliza say truly taught her to be a lady?",
+    qa:"في نهاية الفصل الخامس، من تقول إليزا إنه علّمها كيف تكون سيدة حقاً؟",
+    opts:["Professor Higgins","Mrs. Pearce","Colonel Pickering","Mrs. Higgins"],
+    ans:2,
+    exp:"Eliza credits Pickering — not Higgins. She says it was Pickering's consistent courtesy and respect, from the very first day, that truly made her feel like a lady."
+  }
+];
+
+let answered=[];
+
+function buildQuiz(){
+  const c=document.getElementById('qc');
+  const sb=document.getElementById('sb');
+  c.innerHTML='';sb.classList.remove('show');
+  answered=Array(qs.length).fill(false);
+  qs.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.className='qq';d.id='qq'+i;
+    d.innerHTML=`<div class="qq-num">Question ${i+1} of ${qs.length}</div>
+    <div class="qq-text">${q.q}</div>
+    <div class="qq-ar">${q.qa}</div>
+    <div class="opts">${q.opts.map((o,j)=>`<button class="opt" onclick="ans(${i},${j})">${o}</button>`).join('')}</div>
+    <div class="qfb" id="fb${i}"></div>`;
+    c.appendChild(d);
+  });
+}
+
+function ans(qi,ai){
+  if(answered[qi])return;
+  answered[qi]=true;
+  const q=qs[qi];
+  document.querySelectorAll(`#qq${qi} .opt`).forEach((o,j)=>{
+    o.disabled=true;
+    if(j===q.ans)o.classList.add('correct');
+    else if(j===ai)o.classList.add('wrong');
+  });
+  const fb=document.getElementById('fb'+qi);
+  fb.classList.add('show');
+  if(ai===q.ans){fb.classList.add('ok');fb.textContent='✓ Correct! '+q.exp;}
+  else{fb.classList.add('no');fb.textContent='✗ '+q.exp;}
+  if(answered.every(Boolean))setTimeout(()=>{
+    const sc=answered.filter((_,i)=>true).reduce((a,_,i)=>{
+      const btns=[...document.querySelectorAll(`#qq${i} .opt`)];
+      return a+(btns[qs[i].ans].classList.contains('correct')?1:0);
+    },0);
+    const sb=document.getElementById('sb');
+    sb.classList.add('show');
+    document.getElementById('sn').textContent=sc+'/'+qs.length;
+    const msgs=['Keep reading the play again!','Good effort — review the acts.','Solid work!','Excellent! You know the story well.','Perfect! Shaw would be proud.'];
+    document.getElementById('sm').textContent=msgs[Math.min(Math.floor(sc/qs.length*4),4)];
+    sb.scrollIntoView({behavior:'smooth',block:'center'});
+  },600);
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
